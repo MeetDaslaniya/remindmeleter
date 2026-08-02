@@ -1,0 +1,14 @@
+node_modules
+dist
+logs
+.env
+.env.*
+!.env.example
+.git
+*.log
+coverage
+tools
+KOYEB.md
+scripts
+*.md
+!KOYEB.md

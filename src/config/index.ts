@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const envSchema = z.object({
-  PORT: z.coerce.number().default(5000),
-  BASE_URL: z.string().url().default('http://localhost:5000'),
+  PORT: z.coerce.number().default(3000),
+  BASE_URL: z.string().url().default('http://localhost:3000'),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   AI_API_URL: z.string().url(),
   AI_API_KEY: z.string().min(1),
