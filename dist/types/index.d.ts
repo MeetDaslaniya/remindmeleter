@@ -1,0 +1,139 @@
+export declare enum ReminderStatus {
+    SCHEDULED = "scheduled",
+    COMPLETED = "completed",
+    CANCELLED = "cancelled",
+    FAILED = "failed"
+}
+/** How a reminder repeats after the first fire. */
+export type RecurrenceKind = 'interval' | 'daily' | 'weekly';
+export interface ReminderRecurrence {
+    kind: RecurrenceKind;
+    /** Interval between firings (interval kind). */
+    intervalMs?: number;
+    /** Local weekdays 0=Sun … 6=Sat (weekly kind). */
+    weekdays?: number[];
+    /** Local hour 0–23 (daily / weekly). */
+    hour?: number;
+    /** Local minute 0–59 (daily / weekly). */
+    minute?: number;
+    /** Stop scheduling after this UTC instant. */
+    endsAt?: string;
+    /** Occurrences left including the currently scheduled one. */
+    remainingCount?: number;
+    /** Short human summary for UI / Telegram confirm. */
+    summary: string;
+}
+export interface Reminder {
+    id: string;
+    telegramUserId: string;
+    chatId: string;
+    originalMessage: string;
+    reason: string;
+    datetime: string;
+    timezone: string;
+    status: ReminderStatus;
+    createdAt: string;
+    updatedAt: string;
+    completedAt?: string;
+    channel: MessagingChannel;
+    recurrence?: ReminderRecurrence;
+}
+export type MessagingChannel = 'telegram' | 'whatsapp' | 'messenger' | 'slack' | 'discord';
+export interface ParsedReminder {
+    reason: string;
+    datetime: string;
+    timezone: string;
+    recurrence?: ReminderRecurrence;
+}
+export interface CreateReminderInput {
+    telegramUserId: string;
+    chatId: string;
+    originalMessage: string;
+    reason: string;
+    datetime: string;
+    timezone: string;
+    channel?: MessagingChannel;
+    recurrence?: ReminderRecurrence;
+}
+export interface ReminderStats {
+    total: number;
+    scheduled: number;
+    completed: number;
+    cancelled: number;
+    failed: number;
+    today: number;
+}
+export interface ReminderAnalytics {
+    statusBreakdown: {
+        completed: number;
+        scheduled: number;
+        cancelled: number;
+        failed: number;
+    };
+    remindersPerDay: Array<{
+        date: string;
+        count: number;
+    }>;
+}
+export interface ApiSuccessResponse<T> {
+    success: true;
+    data: T;
+    message?: string;
+}
+export interface ApiErrorResponse {
+    success: false;
+    error: {
+        message: string;
+        code?: string;
+        details?: unknown;
+    };
+}
+export type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse;
+export interface HealthStatus {
+    status: 'healthy' | 'degraded' | 'unhealthy';
+    timestamp: string;
+    uptime: number;
+    memory: {
+        used: number;
+        total: number;
+    };
+    services: {
+        scheduler: boolean;
+        messaging: boolean;
+        ai: boolean;
+    };
+    reminders: {
+        scheduled: number;
+        activeJobs: number;
+    };
+}
+export interface PublicUrlCheck {
+    live: boolean;
+    statusCode?: number;
+    latencyMs?: number;
+    error?: string;
+}
+export interface WebhookStatus {
+    configured: boolean;
+    url: string;
+    expectedUrl: string;
+    matchesExpected: boolean;
+    pendingUpdateCount: number;
+    lastErrorMessage?: string;
+    lastErrorDate?: string;
+    ipAddress?: string;
+}
+export interface SystemStatus {
+    baseUrl: string;
+    publicUrl: PublicUrlCheck;
+    localApi: HealthStatus;
+    webhook: WebhookStatus;
+    checkedAt: string;
+}
+export interface WebhookSyncResult {
+    webhookUrl: string;
+}
+export interface BaseUrlUpdateResult {
+    baseUrl: string;
+}
+//# sourceMappingURL=index.d.ts.map
