@@ -1,6 +1,4 @@
-import fs from 'fs';
 import http from 'http';
-import path from 'path';
 
 import { createApp } from './app';
 import { config } from './config';
@@ -10,11 +8,6 @@ import { seedAdminIfNeeded } from './db/seed-admin';
 import { logger } from './utils/logger';
 
 async function bootstrap(): Promise<void> {
-  const logsDir = path.join(process.cwd(), 'logs');
-  if (!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir, { recursive: true });
-  }
-
   await connectMongo();
   await seedAdminIfNeeded();
 
