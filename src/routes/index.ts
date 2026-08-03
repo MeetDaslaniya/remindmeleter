@@ -18,7 +18,10 @@ import { requireAdmin } from '../middleware/auth';
 
 const router = Router();
 
-
+/** Public no-auth probe — static 200 only */
+router.get('/success', (_req, res) => {
+  res.status(200).json({ success: true, message: 'Success' });
+});
 
 router.use('/health', healthRoutes);
 
