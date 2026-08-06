@@ -49,6 +49,10 @@ export function looksLikeReminderIntent(text: string): boolean {
     return true;
   }
 
+  if (/\buntil\b|\btill\b/.test(normalized) && /\bevery\b/.test(normalized)) {
+    return true;
+  }
+
   if (/\b(today|tomorrow|tonight)\b/.test(normalized) && /\b(at|by)\b/.test(normalized)) {
     return true;
   }

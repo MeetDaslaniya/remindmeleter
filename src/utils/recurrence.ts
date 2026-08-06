@@ -375,7 +375,7 @@ function clampDayForMonth(year: number, month: number, day: number): number {
   return Math.min(day, last);
 }
 
-/** "every minute for next 5 minutes …" or "every 15 minutes 8 times …" */
+/** "every minute for next 5 minutes …" or "every 15 minutes 8 times …" or "every 2 hours until 8 PM" */
 function tryParseIntervalWindow(
   message: string,
   timezone: string,
@@ -403,6 +403,7 @@ function tryParseIntervalWindow(
     return null;
   }
 
+  const firstAt = new Date(now.getTime() + intervalMs);
   let remainingCount: number | undefined;
   let endsAt: string | undefined;
   let summary: string;
@@ -428,15 +429,34 @@ function tryParseIntervalWindow(
     endsAt = new Date(now.getTime() + intervalMs * remainingCount + 5_000).toISOString();
     summary = `Every ${formatDuration(intervalAmount, intervalUnit)} (${remainingCount} times)`;
   } else {
-    // Open-ended interval without a window/count is risky; require an end condition.
-    return null;
+    // "until 8 PM" / "till 8:00pm"
+    const until = resolveUntilClock(message, timezone, now);
+    if (!until) {
+      return null;
+    }
+    if (firstAt.getTime() > until.endsAt.getTime()) {
+      return null;
+    }
+
+    remainingCount = 0;
+    let cursor = firstAt.getTime();
+    while (cursor <= until.endsAt.getTime() && remainingCount < 500) {
+      remainingCount += 1;
+      cursor += intervalMs;
+    }
+    if (remainingCount <= 0) {
+      return null;
+    }
+
+    endsAt = new Date(until.endsAt.getTime() + 5_000).toISOString();
+    summary = `Every ${formatDuration(intervalAmount, intervalUnit)} until ${formatClockLabel(until.hour, until.minute)} (${remainingCount} times)`;
   }
 
-  const firstAt = new Date(now.getTime() + intervalMs);
   const reason = extractReason(message, [
     /\bevery\s+(\d+)?\s*(minutes?|mins?|hours?|hrs?|days?)\b/i,
     /\bfor\s+(?:the\s+)?next\s+\d+\s*(minutes?|mins?|hours?|hrs?|days?)\b/i,
     /\b(?:for\s+)?\d+\s*times?\b/i,
+    /\b(?:until|till)\s+\d{1,2}(?::\d{2})?\s*(am|pm)?\b/i,
   ]);
 
   return {
@@ -451,6 +471,40 @@ function tryParseIntervalWindow(
       summary,
     },
   };
+}
+
+/** Resolve "until 8 PM" to the next local clock instant (today if still ahead, else tomorrow). */
+function resolveUntilClock(
+  message: string,
+  timezone: string,
+  now: Date
+): { endsAt: Date; hour: number; minute: number } | null {
+  const match = message.match(/\b(?:until|till)\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
+  if (!match) {
+    return null;
+  }
+
+  const clock = parseClock(match[1], match[2], match[3]);
+  if (!clock) {
+    return null;
+  }
+
+  const localNow = formatLocalIsoInTimeZone(now, timezone);
+  const datePart = localNow.slice(0, 10);
+  let endsAt = zonedLocalDateTimeToUtc(
+    `${datePart}T${pad2(clock.hour)}:${pad2(clock.minute)}:00`,
+    timezone
+  );
+
+  if (endsAt.getTime() <= now.getTime() + 30_000) {
+    const nextDay = addDaysToDatePart(datePart, 1);
+    endsAt = zonedLocalDateTimeToUtc(
+      `${nextDay}T${pad2(clock.hour)}:${pad2(clock.minute)}:00`,
+      timezone
+    );
+  }
+
+  return { endsAt, hour: clock.hour, minute: clock.minute };
 }
 
 /** "every sunday at 6AM …" or "every sunday to …" (defaults to 00:00) */
@@ -852,6 +906,8 @@ function extractReason(message: string, stripPatterns: RegExp[]): string {
   let reason = message
     .replace(/^\s*(want\s+(a\s+)?)?reminder\s+(for\s+)?/i, '')
     .replace(/^\s*remind\s+me\s+(to\s+)?/i, '')
+    .replace(/^\s*ping\s+me\s+(to\s+)?/i, '')
+    .replace(/^\s*nag\s+me\s+(to\s+)?/i, '')
     .replace(/^\s*i\s+want\s+(a\s+)?reminder\s+(for\s+)?/i, '');
 
   for (const pattern of stripPatterns) {
