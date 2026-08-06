@@ -48,6 +48,12 @@ export interface ReminderRepository {
 
   delete(id: string): Promise<boolean>;
 
+  /**
+   * Atomically claim a scheduled reminder for execution.
+   * Returns the reminder as it was before claim, or null if already claimed/not scheduled.
+   */
+  claimForExecution(id: string): Promise<Reminder | null>;
+
   getStats(): Promise<Omit<ReminderStats, 'customers'>>;
 
   getAnalytics(): Promise<ReminderAnalytics>;

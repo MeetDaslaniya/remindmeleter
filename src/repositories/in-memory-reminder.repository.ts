@@ -65,6 +65,22 @@ export class InMemoryReminderRepository implements ReminderRepository {
     return this.update(id, { status, ...extra });
   }
 
+  async claimForExecution(id: string): Promise<Reminder | null> {
+    const existing = this.reminders.get(id);
+    if (!existing || existing.status !== ReminderStatus.SCHEDULED) {
+      return null;
+    }
+
+    const snapshot: Reminder = { ...existing };
+    this.reminders.set(id, {
+      ...existing,
+      status: ReminderStatus.COMPLETED,
+      completedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    return snapshot;
+  }
+
   async update(id: string, patch: Partial<Reminder>): Promise<Reminder | null> {
     const existing = this.reminders.get(id);
     if (!existing) {

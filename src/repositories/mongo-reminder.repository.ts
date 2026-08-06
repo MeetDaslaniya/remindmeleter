@@ -204,15 +204,49 @@ export class MongoReminderRepository implements ReminderRepository {
 
 
 
+  async claimForExecution(id: string): Promise<Reminder | null> {
+
+    const completedAt = new Date().toISOString();
+
+    const doc = await ReminderModel.findOneAndUpdate(
+
+      { _id: id, status: ReminderStatus.SCHEDULED },
+
+      {
+        $set: {
+          status: ReminderStatus.COMPLETED,
+          completedAt,
+        },
+      },
+
+      { new: false }
+
+    ).exec();
+
+    return doc ? toReminder(doc) : null;
+
+  }
+
+
+
   async update(id: string, patch: Partial<Reminder>): Promise<Reminder | null> {
 
-    const { id: _ignore, ...rest } = patch;
+    const { id: _ignore, completedAt, ...rest } = patch;
+
+    const updateOps: Record<string, unknown> = { $set: rest };
+
+    // Explicitly clear completedAt when rescheduling a recurring reminder
+    if (patch.status === ReminderStatus.SCHEDULED && completedAt === undefined) {
+      updateOps.$unset = { completedAt: 1 };
+    } else if (completedAt !== undefined) {
+      (updateOps.$set as Record<string, unknown>).completedAt = completedAt;
+    }
 
     const doc = await ReminderModel.findByIdAndUpdate(
 
       id,
 
-      { $set: rest },
+      updateOps,
 
       { new: true }
 
