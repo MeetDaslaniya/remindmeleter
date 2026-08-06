@@ -17,6 +17,10 @@ export function looksLikeReminderIntent(text: string): boolean {
     return true;
   }
 
+  if (/\bping\s+me\b/.test(normalized)) {
+    return true;
+  }
+
   if (/\bnag\s+me\b/.test(normalized)) {
     return true;
   }
@@ -29,6 +33,10 @@ export function looksLikeReminderIntent(text: string): boolean {
     return true;
   }
 
+  if (/\bmonthly\b|\bannually\b|\byearly\b/.test(normalized)) {
+    return true;
+  }
+
   if (/\b\d+\s*(minutes?|mins?|hours?|hrs?)\s+before\b/.test(normalized)) {
     return true;
   }
@@ -37,7 +45,7 @@ export function looksLikeReminderIntent(text: string): boolean {
     return true;
   }
 
-  if (/\bin\s+\d+\s*(minute|min|mins|hour|hours|hr|hrs|day|days)\b/.test(normalized)) {
+  if (/\b(?:in|after)\s+\d+\s*(minute|min|mins|hour|hours|hr|hrs|day|days)\b/.test(normalized)) {
     return true;
   }
 

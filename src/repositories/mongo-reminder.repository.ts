@@ -38,6 +38,18 @@ function toReminder(doc: ReminderDocument): Reminder {
 
         ...(doc.recurrence.weekdays?.length ? { weekdays: [...doc.recurrence.weekdays] } : {}),
 
+        ...(doc.recurrence.month !== undefined && doc.recurrence.month !== null
+
+          ? { month: doc.recurrence.month }
+
+          : {}),
+
+        ...(doc.recurrence.dayOfMonth !== undefined && doc.recurrence.dayOfMonth !== null
+
+          ? { dayOfMonth: doc.recurrence.dayOfMonth }
+
+          : {}),
+
         ...(doc.recurrence.hour !== undefined && doc.recurrence.hour !== null
 
           ? { hour: doc.recurrence.hour }

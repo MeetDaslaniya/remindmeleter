@@ -1385,3 +1385,188 @@
 2026-08-06 11:53:17 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
 2026-08-06 11:53:17 [info]: Health check: https://fruity-pets-carry.loca.lt/health
 2026-08-06 11:53:17 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 11:53:28 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 11:53:28 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 11:53:28 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 11:53:28 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 11:53:28 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 11:53:28 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 11:53:28 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":4}
+2026-08-06 11:53:28 [info]: Scheduler restored jobs from MongoDB {"count":4}
+2026-08-06 11:53:28 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 11:53:28 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 11:53:28 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 11:53:28 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:05:46 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:05:46 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:05:47 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:05:47 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":8}
+2026-08-06 12:05:47 [info]: Scheduler restored jobs from MongoDB {"count":8}
+2026-08-06 12:05:47 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:05:47 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:05:47 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:05:47 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:06:25 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:06:25 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:06:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:06:26 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":8}
+2026-08-06 12:06:26 [info]: Scheduler restored jobs from MongoDB {"count":8}
+2026-08-06 12:06:26 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:06:26 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:06:26 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:06:26 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:07:54 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:07:54 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:07:54 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:07:54 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":8}
+2026-08-06 12:07:54 [info]: Scheduler restored jobs from MongoDB {"count":8}
+2026-08-06 12:07:54 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:07:54 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:07:54 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:07:54 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:12:33 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:12:33 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cc5208b809d13f76ddb","runAt":"2026-08-06T06:43:43.000Z","timezone":"Asia/Kolkata","reason":"turn off the stove"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742c7c208b809d13f76dd9","runAt":"2026-08-06T07:26:00.927Z","timezone":"Asia/Kolkata","reason":"Check the oven"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cb5208b809d13f76dda","runAt":"2026-08-09T06:41:57.183Z","timezone":"Asia/Kolkata","reason":"Renew my internet plan"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:12:34 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:12:34 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":11}
+2026-08-06 12:12:34 [info]: Scheduler restored jobs from MongoDB {"count":11}
+2026-08-06 12:12:34 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:12:34 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:12:34 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:12:34 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:13:43 [info]: Executing reminder {"service":"scheduler","id":"6a742cc5208b809d13f76ddb"}
+2026-08-06 12:13:43 [info]: Telegram message sent {"chatId":"1817277135"}
+2026-08-06 12:13:43 [info]: Reminder completed {"service":"scheduler","id":"6a742cc5208b809d13f76ddb","reason":"turn off the stove"}
+2026-08-06 12:16:36 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:16:37 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742dbd208b809d13f76de0","runAt":"2026-08-06T07:16:21.965Z","timezone":"Asia/Kolkata","reason":"Stretch","recurrence":"interval"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742c7c208b809d13f76dd9","runAt":"2026-08-06T07:26:00.927Z","timezone":"Asia/Kolkata","reason":"Check the oven"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cfc208b809d13f76ddd","runAt":"2026-08-07T01:30:00.000Z","timezone":"Asia/Kolkata","reason":"Exercise","recurrence":"daily"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d9e208b809d13f76ddf","runAt":"2026-08-07T11:30:00.000Z","timezone":"Asia/Kolkata","reason":"Submit my weekly report","recurrence":"weekly"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d56208b809d13f76dde","runAt":"2026-08-08T04:30:00.000Z","timezone":"Asia/Kolkata","reason":"Clean the house","recurrence":"weekly"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cb5208b809d13f76dda","runAt":"2026-08-09T06:41:57.183Z","timezone":"Asia/Kolkata","reason":"Renew my internet plan"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cde208b809d13f76ddc","runAt":"2026-08-13T06:42:38.000Z","timezone":"Asia/Kolkata","reason":"call the dentist"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:16:38 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:16:38 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":15}
+2026-08-06 12:16:38 [info]: Scheduler restored jobs from MongoDB {"count":15}
+2026-08-06 12:16:38 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:16:38 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:16:38 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:16:38 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:17:08 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:17:09 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742dbd208b809d13f76de0","runAt":"2026-08-06T07:16:21.965Z","timezone":"Asia/Kolkata","reason":"Stretch","recurrence":"interval"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742c7c208b809d13f76dd9","runAt":"2026-08-06T07:26:00.927Z","timezone":"Asia/Kolkata","reason":"Check the oven"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742deb208b809d13f76de1","runAt":"2026-08-06T14:30:00.000Z","timezone":"Asia/Kolkata","reason":"The next 30 days to study JavaScript","recurrence":"daily"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cfc208b809d13f76ddd","runAt":"2026-08-07T01:30:00.000Z","timezone":"Asia/Kolkata","reason":"Exercise","recurrence":"daily"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d9e208b809d13f76ddf","runAt":"2026-08-07T11:30:00.000Z","timezone":"Asia/Kolkata","reason":"Submit my weekly report","recurrence":"weekly"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d56208b809d13f76dde","runAt":"2026-08-08T04:30:00.000Z","timezone":"Asia/Kolkata","reason":"Clean the house","recurrence":"weekly"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cb5208b809d13f76dda","runAt":"2026-08-09T06:41:57.183Z","timezone":"Asia/Kolkata","reason":"Renew my internet plan"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cde208b809d13f76ddc","runAt":"2026-08-13T06:42:38.000Z","timezone":"Asia/Kolkata","reason":"call the dentist"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:17:09 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:17:09 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":16}
+2026-08-06 12:17:09 [info]: Scheduler restored jobs from MongoDB {"count":16}
+2026-08-06 12:17:09 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:17:09 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:17:09 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:17:09 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:20:21 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:20:21 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742dbd208b809d13f76de0","runAt":"2026-08-06T07:16:21.965Z","timezone":"Asia/Kolkata","reason":"Stretch","recurrence":"interval"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742c7c208b809d13f76dd9","runAt":"2026-08-06T07:26:00.927Z","timezone":"Asia/Kolkata","reason":"Check the oven"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742deb208b809d13f76de1","runAt":"2026-08-06T14:30:00.000Z","timezone":"Asia/Kolkata","reason":"The next 30 days to study JavaScript","recurrence":"daily"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742e9e208b809d13f76de3","runAt":"2026-08-07T00:45:00.000Z","timezone":"Asia/Kolkata","reason":"Wake me up"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cfc208b809d13f76ddd","runAt":"2026-08-07T01:30:00.000Z","timezone":"Asia/Kolkata","reason":"Exercise","recurrence":"daily"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d9e208b809d13f76ddf","runAt":"2026-08-07T11:30:00.000Z","timezone":"Asia/Kolkata","reason":"Submit my weekly report","recurrence":"weekly"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d56208b809d13f76dde","runAt":"2026-08-08T04:30:00.000Z","timezone":"Asia/Kolkata","reason":"Clean the house","recurrence":"weekly"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cb5208b809d13f76dda","runAt":"2026-08-09T06:41:57.183Z","timezone":"Asia/Kolkata","reason":"Renew my internet plan"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742eac208b809d13f76de4","runAt":"2026-08-09T08:30:00.000Z","timezone":"Asia/Kolkata","reason":"visit Grandma"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742e50208b809d13f76de2","runAt":"2026-08-09T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"The next 10 weeks to attend yoga class","recurrence":"weekly"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cde208b809d13f76ddc","runAt":"2026-08-13T06:42:38.000Z","timezone":"Asia/Kolkata","reason":"call the dentist"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:20:21 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:20:21 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":19}
+2026-08-06 12:20:21 [info]: Scheduler restored jobs from MongoDB {"count":19}
+2026-08-06 12:20:21 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:20:21 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:20:21 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:20:21 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 12:22:25 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 12:22:26 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742dbd208b809d13f76de0","runAt":"2026-08-06T07:16:21.965Z","timezone":"Asia/Kolkata","reason":"Stretch","recurrence":"interval"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742c7c208b809d13f76dd9","runAt":"2026-08-06T07:26:00.927Z","timezone":"Asia/Kolkata","reason":"Check the oven"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742ed0208b809d13f76de5","runAt":"2026-08-06T11:30:00.000Z","timezone":"Asia/Kolkata","reason":"leave for the airport"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742deb208b809d13f76de1","runAt":"2026-08-06T14:30:00.000Z","timezone":"Asia/Kolkata","reason":"The next 30 days to study JavaScript","recurrence":"daily"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742ede208b809d13f76de6","runAt":"2026-08-06T15:30:00.000Z","timezone":"Asia/Kolkata","reason":"take medicine"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742e9e208b809d13f76de3","runAt":"2026-08-07T00:45:00.000Z","timezone":"Asia/Kolkata","reason":"Wake me up"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cfc208b809d13f76ddd","runAt":"2026-08-07T01:30:00.000Z","timezone":"Asia/Kolkata","reason":"Exercise","recurrence":"daily"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d9e208b809d13f76ddf","runAt":"2026-08-07T11:30:00.000Z","timezone":"Asia/Kolkata","reason":"Submit my weekly report","recurrence":"weekly"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742d56208b809d13f76dde","runAt":"2026-08-08T04:30:00.000Z","timezone":"Asia/Kolkata","reason":"Clean the house","recurrence":"weekly"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cb5208b809d13f76dda","runAt":"2026-08-09T06:41:57.183Z","timezone":"Asia/Kolkata","reason":"Renew my internet plan"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742eac208b809d13f76de4","runAt":"2026-08-09T08:30:00.000Z","timezone":"Asia/Kolkata","reason":"visit Grandma"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742e50208b809d13f76de2","runAt":"2026-08-09T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"The next 10 weeks to attend yoga class","recurrence":"weekly"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a01208b809d13f76dd6","runAt":"2026-08-10T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"The team meeting"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742cde208b809d13f76ddc","runAt":"2026-08-13T06:42:38.000Z","timezone":"Asia/Kolkata","reason":"call the dentist"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742aa5208b809d13f76dd8","runAt":"2026-09-12T18:30:00.000Z","timezone":"Asia/Kolkata","reason":"celebrate with family"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a742a1e208b809d13f76dd7","runAt":"2026-09-15T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill"}
+2026-08-06 12:22:26 [info]: Reminder scheduled {"service":"scheduler","id":"6a7429ed208b809d13f76dd5","runAt":"2026-12-31T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown"}
+2026-08-06 12:22:26 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":21}
+2026-08-06 12:22:26 [info]: Scheduler restored jobs from MongoDB {"count":21}
+2026-08-06 12:22:27 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 12:22:27 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 12:22:27 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 12:22:27 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook

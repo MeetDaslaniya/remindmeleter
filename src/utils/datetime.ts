@@ -148,8 +148,10 @@ export interface ExplicitClockParseResult {
 }
 
 /**
- * Deterministic parser for phrases like "in 2 minutes to drink water".
- * Returns null when the message is not a simple relative reminder.
+ * Deterministic parser for phrases like:
+ * - "in 2 minutes to drink water"
+ * - "after 2 hours to submit the assignment"
+ * - "ping me after 2 hours …"
  */
 export function tryParseRelativeReminder(
   message: string,
@@ -157,7 +159,7 @@ export function tryParseRelativeReminder(
   now: Date = new Date()
 ): RelativeParseResult | null {
   const relative = message.match(
-    /\bin\s+(\d+)\s*(minutes?|mins?|hours?|hrs?|days?)\b/i
+    /\b(?:in|after)\s+(\d+)\s*(minutes?|mins?|hours?|hrs?|days?)\b/i
   );
   if (!relative) {
     return null;
@@ -179,8 +181,8 @@ export function tryParseRelativeReminder(
   const runAt = new Date(now.getTime() + ms);
 
   let reason = message
-    .replace(/^\s*remind\s+me\s+/i, '')
-    .replace(/\bin\s+\d+\s*(minutes?|mins?|hours?|hrs?|days?)\b/i, '')
+    .replace(/^\s*(?:remind\s+me|ping\s+me|nag\s+me)\s+/i, '')
+    .replace(/\b(?:in|after)\s+\d+\s*(minutes?|mins?|hours?|hrs?|days?)\b/i, '')
     .replace(/^\s*to\s+/i, '')
     .replace(/[.,!?]+$/g, '')
     .trim();

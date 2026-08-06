@@ -6,7 +6,7 @@ export enum ReminderStatus {
 }
 
 /** How a reminder repeats after the first fire. */
-export type RecurrenceKind = 'interval' | 'daily' | 'weekly';
+export type RecurrenceKind = 'interval' | 'daily' | 'weekly' | 'monthly' | 'yearly';
 
 export interface ReminderRecurrence {
   kind: RecurrenceKind;
@@ -14,9 +14,13 @@ export interface ReminderRecurrence {
   intervalMs?: number;
   /** Local weekdays 0=Sun … 6=Sat (weekly kind). */
   weekdays?: number[];
-  /** Local hour 0–23 (daily / weekly). */
+  /** Month 1–12 (yearly kind). */
+  month?: number;
+  /** Day of month 1–31 (monthly / yearly). */
+  dayOfMonth?: number;
+  /** Local hour 0–23 (daily / weekly / monthly / yearly). */
   hour?: number;
-  /** Local minute 0–59 (daily / weekly). */
+  /** Local minute 0–59 (daily / weekly / monthly / yearly). */
   minute?: number;
   /** Stop scheduling after this UTC instant. */
   endsAt?: string;

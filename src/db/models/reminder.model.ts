@@ -8,11 +8,15 @@ const recurrenceSchema = new Schema(
 
   {
 
-    kind: { type: String, required: true, enum: ['interval', 'daily', 'weekly'] },
+    kind: { type: String, required: true, enum: ['interval', 'daily', 'weekly', 'monthly', 'yearly'] },
 
     intervalMs: { type: Number },
 
     weekdays: { type: [Number] },
+
+    month: { type: Number },
+
+    dayOfMonth: { type: Number },
 
     hour: { type: Number },
 
