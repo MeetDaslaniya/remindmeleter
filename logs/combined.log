@@ -1213,3 +1213,175 @@
 2026-08-03 01:21:17 [http]: 127.0.0.1 - - [02/Aug/2026:19:51:17 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
 2026-08-03 01:21:18 [http]: 127.0.0.1 - - [02/Aug/2026:19:51:18 +0000] "GET /api/system/status HTTP/1.1" 200 633 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
 2026-08-03 01:21:20 [http]: 127.0.0.1 - - [02/Aug/2026:19:51:20 +0000] "GET /api/system/status HTTP/1.1" 200 633 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:18 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-05 10:28:18 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-05 10:28:18 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-05 10:28:18 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-05 10:28:18 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-05 10:28:18 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-05 10:28:18 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-05 10:28:34 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:34 +0000] "POST /api/auth/login HTTP/1.1" 200 401 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:34 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:34 +0000] "GET /api/reminders HTTP/1.1" 200 5317 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:34 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:34 +0000] "GET /api/reminders/analytics HTTP/1.1" 200 215 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:34 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:34 +0000] "GET /api/customers HTTP/1.1" 200 740 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:34 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:34 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:35 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:35 +0000] "GET /api/customers/stats HTTP/1.1" 200 78 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:35 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:35 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:35 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:35 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:35 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:35 +0000] "GET /api/reminders/stats HTTP/1.1" 200 114 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:35 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:35 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:35 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:35 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:47 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:47 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:47 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:47 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:47 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:47 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:47 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:47 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:47 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:47 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:48 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:48 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:48 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:48 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:48 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:48 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:48 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:48 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:48 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:48 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:53 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:53 +0000] "GET /api/system/status HTTP/1.1" 200 651 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:28:58 [http]: 127.0.0.1 - - [05/Aug/2026:04:58:58 +0000] "GET /api/system/status HTTP/1.1" 200 651 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:01 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:01 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:02 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:02 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:02 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:02 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 10:29:14 [http]: 127.0.0.1 - - [05/Aug/2026:04:59:14 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:00:51 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 10:00:51 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 10:00:51 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-06 10:00:51 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-06 10:00:51 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 10:00:51 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 10:00:51 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 10:02:14 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:14 +0000] "POST /api/auth/login HTTP/1.1" 200 401 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:15 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:15 +0000] "GET /api/reminders HTTP/1.1" 200 5737 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:15 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:15 +0000] "GET /api/customers HTTP/1.1" 200 740 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:15 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:15 +0000] "GET /api/reminders/analytics HTTP/1.1" 200 247 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:15 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:15 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:15 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:15 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:16 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:16 +0000] "GET /api/customers/stats HTTP/1.1" 200 78 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:16 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:16 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:16 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:16 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:16 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:16 +0000] "GET /api/reminders/stats HTTP/1.1" 200 114 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:16 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:16 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/customers HTTP/1.1" 200 740 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/customers/stats HTTP/1.1" 200 78 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:46 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:46 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/customers HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/reminders HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/customers/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/reminders/stats HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:02:54 [http]: 127.0.0.1 - - [06/Aug/2026:04:32:54 +0000] "GET /api/reminders/analytics HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-06 10:11:09 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 10:11:10 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 10:11:10 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-06 10:11:10 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-06 10:11:10 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 10:11:10 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 10:11:10 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 10:11:27 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 10:11:27 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 10:11:27 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-06 10:11:27 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-06 10:11:27 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 10:11:27 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 10:11:27 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 10:11:59 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 10:11:59 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 10:12:00 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-06 10:12:00 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-06 10:12:00 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 10:12:00 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 10:12:00 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 10:12:00 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 10:22:03 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 10:22:03 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 10:22:03 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-06 10:22:03 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-06 10:22:03 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 10:22:03 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 10:22:03 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 10:22:03 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 10:33:08 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 10:33:08 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 10:33:08 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":0}
+2026-08-06 10:33:08 [info]: Scheduler restored jobs from MongoDB {"count":0}
+2026-08-06 10:33:08 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 10:33:08 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 10:33:08 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 10:33:08 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 11:51:06 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 11:51:06 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 11:51:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 11:51:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 11:51:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 11:51:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 11:51:06 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":4}
+2026-08-06 11:51:06 [info]: Scheduler restored jobs from MongoDB {"count":4}
+2026-08-06 11:51:06 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 11:51:06 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 11:51:06 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 11:51:06 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 11:53:05 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 11:53:05 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 11:53:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 11:53:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 11:53:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 11:53:06 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 11:53:06 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":4}
+2026-08-06 11:53:06 [info]: Scheduler restored jobs from MongoDB {"count":4}
+2026-08-06 11:53:06 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 11:53:06 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 11:53:06 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 11:53:06 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook
+2026-08-06 11:53:17 [info]: Connected to MongoDB {"db":"RemindMeAI"}
+2026-08-06 11:53:17 [info]: Admin account already present {"email":"admin@gmail.com"}
+2026-08-06 11:53:17 [info]: Reminder scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5","runAt":"2026-08-06T13:00:00.000Z","timezone":"Asia/Kolkata","reason":"Pay the electricity bill."}
+2026-08-06 11:53:17 [info]: Reminder scheduled {"service":"scheduler","id":"6a742783e82bf4056f28cdb7","runAt":"2026-08-06T18:20:00.000Z","timezone":"Asia/Kolkata","reason":"Watch the countdown."}
+2026-08-06 11:53:17 [info]: Reminder scheduled {"service":"scheduler","id":"6a741ae1e82bf4056f28cdb4","runAt":"2026-08-07T02:30:00.000Z","timezone":"Asia/Kolkata","reason":"Call Mom."}
+2026-08-06 11:53:17 [info]: Reminder scheduled {"service":"scheduler","id":"6a742746e82bf4056f28cdb6","runAt":"2026-08-07T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Next Monday  about the team meeting"}
+2026-08-06 11:53:17 [info]: Restored scheduled jobs from repository {"service":"scheduler","count":4}
+2026-08-06 11:53:17 [info]: Scheduler restored jobs from MongoDB {"count":4}
+2026-08-06 11:53:17 [warn]: ADMIN_TELEGRAM_CHAT_ID not set — daily admin reports disabled
+2026-08-06 11:53:17 [info]: Server running on port 5000 {"env":"development","baseUrl":"https://fruity-pets-carry.loca.lt","db":"RemindMeAI"}
+2026-08-06 11:53:17 [info]: Health check: https://fruity-pets-carry.loca.lt/health
+2026-08-06 11:53:17 [info]: Telegram webhook: https://fruity-pets-carry.loca.lt/telegram/webhook

@@ -52,6 +52,8 @@ export interface ReminderRepository {
 
   getAnalytics(): Promise<ReminderAnalytics>;
 
+  /** Reminders with createdAt >= since (UTC instant). */
+  countCreatedSince(since: Date): Promise<number>;
 }
 
 

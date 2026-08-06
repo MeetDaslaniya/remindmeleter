@@ -10,8 +10,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "typecheck": "tsc --noEmit",
-    "ngrok": "powershell -ExecutionPolicy Bypass -File ./scripts/start-ngrok.ps1"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "telegram",
@@ -44,7 +43,6 @@
     "@types/node": "^22.10.5",
     "@types/node-schedule": "^2.1.7",
     "@types/uuid": "^10.0.0",
-    "localtunnel": "^2.0.2",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }

@@ -156,13 +156,6 @@ export interface HealthStatus {
   };
 }
 
-export interface PublicUrlCheck {
-  live: boolean;
-  statusCode?: number;
-  latencyMs?: number;
-  error?: string;
-}
-
 export interface WebhookStatus {
   configured: boolean;
   url: string;
@@ -176,7 +169,6 @@ export interface WebhookStatus {
 
 export interface SystemStatus {
   baseUrl: string;
-  publicUrl: PublicUrlCheck;
   localApi: HealthStatus;
   webhook: WebhookStatus;
   checkedAt: string;
@@ -184,8 +176,4 @@ export interface SystemStatus {
 
 export interface WebhookSyncResult {
   webhookUrl: string;
-}
-
-export interface BaseUrlUpdateResult {
-  baseUrl: string;
 }

@@ -38,7 +38,7 @@ const PAST_TIME_REPLY = 'Time should be in future.';
 
 const GREETING_REPLY = [
 
-  '👋 <b>Hi!</b> I’m RemindAI — your Telegram reminder bot.',
+  '👋 <b>Hi!</b> I’m PingLater — your Telegram reminder bot (pinglater.in).',
 
   '',
 

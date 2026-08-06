@@ -17,6 +17,8 @@ async function bootstrap(): Promise<void> {
   const restored = await container.schedulerService.restoreScheduledJobs();
   logger.info('Scheduler restored jobs from MongoDB', { count: restored });
 
+  container.adminReportService.start();
+
   const port = config.PORT;
 
   server.listen(port, '0.0.0.0', () => {
@@ -40,6 +42,7 @@ async function bootstrap(): Promise<void> {
 
     server.close(async () => {
       try {
+        container.adminReportService.stop();
         await disconnectMongo();
       } catch (error: unknown) {
         logger.error('Error during MongoDB disconnect', {

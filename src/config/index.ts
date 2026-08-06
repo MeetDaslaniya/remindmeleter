@@ -13,6 +13,8 @@ const envSchema = z.object({
   TELEGRAM_BOT_TOKEN: z.string().min(1),
   TELEGRAM_WEBHOOK_SECRET: z.string().min(1),
   DEFAULT_TIMEZONE: z.string().default('Asia/Kolkata'),
+  /** Telegram chat/user id for daily health + EOD reports (optional) */
+  ADMIN_TELEGRAM_CHAT_ID: z.string().optional(),
   MONGODB_URI: z.string().min(1),
   MONGODB_DB_NAME: z.string().min(1).default('RemindMeAI'),
   JWT_SECRET: z.string().min(16).default('remindai-dev-jwt-secret-change-me'),

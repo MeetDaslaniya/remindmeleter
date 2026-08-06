@@ -18,6 +18,8 @@ export interface CustomerRepository {
 
   count(): Promise<number>;
 
+  /** Customers with createdAt >= since (UTC instant). */
+  countCreatedSince(since: Date): Promise<number>;
 }
 
 

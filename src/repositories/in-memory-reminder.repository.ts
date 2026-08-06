@@ -106,6 +106,12 @@ export class InMemoryReminderRepository implements ReminderRepository {
     };
   }
 
+  async countCreatedSince(since: Date): Promise<number> {
+    const all = await this.findAll();
+    const sinceMs = since.getTime();
+    return all.filter((r) => new Date(r.createdAt).getTime() >= sinceMs).length;
+  }
+
   async getAnalytics(): Promise<ReminderAnalytics> {
     const all = await this.findAll();
     const dayMap = new Map<string, number>();

@@ -160,6 +160,14 @@ export class MongoCustomerRepository implements CustomerRepository {
 
 
 
+  async countCreatedSince(since: Date): Promise<number> {
+
+    return CustomerModel.countDocuments({ createdAt: { $gte: since } });
+
+  }
+
+
+
   async getStats(scheduledCustomerIds: string[] = []): Promise<CustomerStats> {
 
     const start = new Date();

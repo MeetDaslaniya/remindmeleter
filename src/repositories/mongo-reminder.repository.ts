@@ -248,6 +248,14 @@ export class MongoReminderRepository implements ReminderRepository {
 
 
 
+  async countCreatedSince(since: Date): Promise<number> {
+
+    return ReminderModel.countDocuments({ createdAt: { $gte: since } });
+
+  }
+
+
+
   async getAnalytics(): Promise<ReminderAnalytics> {
 
     const [completed, scheduled, cancelled, failed, perDay] = await Promise.all([
