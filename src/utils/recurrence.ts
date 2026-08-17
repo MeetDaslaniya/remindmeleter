@@ -467,6 +467,7 @@ function tryParseIntervalWindow(
       kind: 'interval',
       intervalMs,
       remainingCount,
+      totalCount: remainingCount,
       endsAt,
       summary,
     },
@@ -570,7 +571,9 @@ function tryParseWeekly(
       hour: clock.hour,
       minute: clock.minute,
       summary,
-      ...(remainingCount !== undefined ? { remainingCount } : {}),
+      ...(remainingCount !== undefined
+        ? { remainingCount, totalCount: remainingCount }
+        : {}),
       ...(endsAt ? { endsAt } : {}),
     },
   };
@@ -630,7 +633,9 @@ function tryParseEveryDayAt(
       hour: clock.hour,
       minute: clock.minute,
       summary,
-      ...(remainingCount !== undefined ? { remainingCount } : {}),
+      ...(remainingCount !== undefined
+        ? { remainingCount, totalCount: remainingCount }
+        : {}),
       ...(endsAt ? { endsAt } : {}),
     },
   };

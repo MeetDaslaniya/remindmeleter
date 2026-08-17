@@ -1,4 +1,4 @@
-import { CreateReminderInput, Reminder, ReminderAnalytics, ReminderStats, ReminderStatus } from '../types';
+import { ACTIVE_REMINDER_STATUSES, CreateReminderInput, Reminder, ReminderAnalytics, ReminderStats } from '../types';
 
 import { ReminderRepository } from '../repositories/reminder.repository';
 
@@ -124,7 +124,7 @@ export class ReminderService {
 
     const all = await this.reminderRepository.findByTelegramUserId(telegramUserId);
 
-    return all.filter((r) => r.status === ReminderStatus.SCHEDULED);
+    return all.filter((r) => ACTIVE_REMINDER_STATUSES.includes(r.status));
 
   }
 

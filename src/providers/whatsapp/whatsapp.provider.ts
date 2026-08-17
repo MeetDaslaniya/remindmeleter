@@ -2,6 +2,7 @@ import {
   IncomingMessage,
   MessagingProvider,
   OutgoingMessage,
+  SendMessageResult,
 } from '../messaging.provider';
 import { AppError } from '../../utils/errors';
 
@@ -13,7 +14,7 @@ import { AppError } from '../../utils/errors';
 export class WhatsappProvider implements MessagingProvider {
   readonly channel = 'whatsapp';
 
-  async sendMessage(_message: OutgoingMessage): Promise<void> {
+  async sendMessage(_message: OutgoingMessage): Promise<SendMessageResult> {
     throw new AppError(
       'WhatsApp provider is not configured yet',
       501,

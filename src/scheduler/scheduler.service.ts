@@ -6,10 +6,12 @@ import { schedulerLogger } from '../utils/logger';
 import { NotFoundError } from '../utils/errors';
 import { resolveToUtcDate } from '../utils/datetime';
 import { computeNextOccurrence } from '../utils/recurrence';
+import { reminderActionKeyboard } from '../config/snooze-options';
+import { formatReminderFireHtml } from '../utils/reminder-message';
 
 /**
  * Dynamic scheduling via node-schedule.
- * One-shot jobs complete after firing; recurring jobs advance to the next occurrence.
+ * One-shot jobs wait for Complete/Snooze after firing; recurring jobs advance to the next occurrence.
  */
 export class SchedulerService {
   private readonly jobs = new Map<string, Job>();
@@ -115,24 +117,26 @@ export class SchedulerService {
       }
 
       try {
-        const text = [
-          '<b>⏰ Reminder</b>',
-          '',
-          reminder.reason,
-          ...(reminder.recurrence ? ['', `<i>${reminder.recurrence.summary}</i>`] : []),
-        ].join('\n');
-
-        await this.messagingProvider.sendMessage({
+        const sent = await this.messagingProvider.sendMessage({
           chatId: reminder.chatId,
-          text,
+          text: formatReminderFireHtml(reminder),
           parseMode: 'HTML',
+          inlineKeyboard: reminderActionKeyboard(reminder.id),
         });
+
+        if (sent.messageId) {
+          await this.reminderRepository.update(id, {
+            telegramMessageId: Number(sent.messageId),
+          });
+        }
 
         const rescheduled = await this.rescheduleIfRecurring(reminder);
         if (!rescheduled) {
-          // Already marked COMPLETED by claimForExecution
           this.jobs.delete(id);
-          schedulerLogger.info('Reminder completed', { id, reason: reminder.reason });
+          schedulerLogger.info('Reminder sent; waiting for Complete/Snooze', {
+            id,
+            reason: reminder.reason,
+          });
         }
       } catch (error) {
         await this.reminderRepository.updateStatus(id, ReminderStatus.FAILED);
@@ -172,6 +176,9 @@ export class SchedulerService {
     const recurrence = {
       ...reminder.recurrence,
       ...(Number.isFinite(remainingAfter) ? { remainingCount: remainingAfter } : {}),
+      ...(reminder.recurrence.totalCount !== undefined
+        ? { totalCount: reminder.recurrence.totalCount }
+        : {}),
     };
 
     const updated = await this.reminderRepository.update(reminder.id, {
@@ -196,7 +203,10 @@ export class SchedulerService {
   }
 
   async restoreScheduledJobs(): Promise<number> {
-    const scheduled = await this.reminderRepository.findByStatus(ReminderStatus.SCHEDULED);
+    const scheduled = await this.reminderRepository.findByStatuses([
+      ReminderStatus.SCHEDULED,
+      ReminderStatus.SNOOZED,
+    ]);
     let restored = 0;
 
     for (const reminder of scheduled) {

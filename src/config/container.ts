@@ -12,6 +12,7 @@ import { SchedulerService } from '../scheduler/scheduler.service';
 import { HealthService } from '../services/health.service';
 import { SystemService } from '../services/system.service';
 import { AdminReportService } from '../services/admin-report.service';
+import { ReminderActionService } from '../services/reminder-action.service';
 
 /**
  * Composition root — MongoDB is the persistent store for customers + reminders.
@@ -26,6 +27,7 @@ export class Container {
   readonly reminderService: ReminderService;
   readonly customerService: CustomerService;
   readonly telegramWebhookService: TelegramWebhookService;
+  readonly reminderActionService: ReminderActionService;
   readonly healthService: HealthService;
   readonly systemService: SystemService;
   readonly adminReportService: AdminReportService;
@@ -53,11 +55,19 @@ export class Container {
       this.customerService
     );
 
+    this.reminderActionService = new ReminderActionService(
+      this.reminderRepository,
+      this.schedulerService,
+      this.telegramProvider
+    );
+
     this.telegramWebhookService = new TelegramWebhookService(
       this.messagingProvider,
       this.aiService,
       this.reminderService,
-      this.customerService
+      this.customerService,
+      this.telegramProvider,
+      this.reminderActionService
     );
 
     this.healthService = new HealthService(

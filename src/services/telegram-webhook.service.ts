@@ -1,10 +1,9 @@
 import { MessagingProvider, IncomingMessage } from '../providers/messaging.provider';
-
+import { TelegramProvider } from '../providers/telegram/telegram.provider';
 import { AiService } from './ai.service';
-
 import { ReminderService } from './reminder.service';
-
 import { CustomerService } from './customer.service';
+import { ReminderActionService } from './reminder-action.service';
 
 import { logger } from '../utils/logger';
 
@@ -114,6 +113,8 @@ const HELP_TEXT = [
 
   'Manage yours:',
 
+  '• When a reminder fires, tap ✅ Completed or 😴 Snooze',
+
   '• /list — show active reminders',
 
   '• /cancel 2 — cancel reminder number 2 from /list',
@@ -129,20 +130,20 @@ const HELP_TEXT = [
 export class TelegramWebhookService {
 
   constructor(
-
     private readonly messagingProvider: MessagingProvider,
-
     private readonly aiService: AiService,
-
     private readonly reminderService: ReminderService,
-
-    private readonly customerService: CustomerService
-
+    private readonly customerService: CustomerService,
+    private readonly telegramProvider: TelegramProvider,
+    private readonly reminderActionService: ReminderActionService
   ) {}
 
-
-
   async handleUpdate(payload: unknown): Promise<void> {
+    const callback = this.telegramProvider.parseCallbackQuery(payload);
+    if (callback) {
+      await this.reminderActionService.handleReminderCallback(callback);
+      return;
+    }
 
     const incoming = this.messagingProvider.parseIncomingPayload(payload);
 

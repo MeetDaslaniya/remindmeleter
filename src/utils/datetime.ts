@@ -627,7 +627,7 @@ function extractReminderReason(message: string, stripPatterns: RegExp[]): string
   return reason.charAt(0).toUpperCase() + reason.slice(1);
 }
 
-function addDaysToDatePart(datePart: string, days: number): string {
+export function addDaysToDatePart(datePart: string, days: number): string {
   const [year, month, day] = datePart.split('-').map(Number);
   const d = new Date(Date.UTC(year, month - 1, day + days));
   const y = d.getUTCFullYear();

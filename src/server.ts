@@ -17,6 +17,14 @@ async function bootstrap(): Promise<void> {
   const restored = await container.schedulerService.restoreScheduledJobs();
   logger.info('Scheduler restored jobs from MongoDB', { count: restored });
 
+  void container.telegramProvider
+    .ensureCallbackUpdates(config.TELEGRAM_WEBHOOK_SECRET)
+    .catch((error: unknown) => {
+      logger.warn('Telegram callback_query webhook check failed', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+    });
+
   container.adminReportService.start();
 
   const port = config.PORT;

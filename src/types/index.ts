@@ -1,9 +1,18 @@
 export enum ReminderStatus {
   SCHEDULED = 'scheduled',
+  SENT = 'sent',
+  SNOOZED = 'snoozed',
   COMPLETED = 'completed',
   CANCELLED = 'cancelled',
   FAILED = 'failed',
 }
+
+/** Upcoming or waiting-for-user reminders (shown in /list, restored by the scheduler). */
+export const ACTIVE_REMINDER_STATUSES: ReminderStatus[] = [
+  ReminderStatus.SCHEDULED,
+  ReminderStatus.SENT,
+  ReminderStatus.SNOOZED,
+];
 
 /** How a reminder repeats after the first fire. */
 export type RecurrenceKind = 'interval' | 'daily' | 'weekly' | 'monthly' | 'yearly';
@@ -26,6 +35,8 @@ export interface ReminderRecurrence {
   endsAt?: string;
   /** Occurrences left including the currently scheduled one. */
   remainingCount?: number;
+  /** Original total occurrences when a fixed count/window was set (for 3/8 progress). */
+  totalCount?: number;
   /** Short human summary for UI / Telegram confirm. */
   summary: string;
 }
@@ -43,6 +54,11 @@ export interface Reminder {
   createdAt: string;
   updatedAt: string;
   completedAt?: string;
+  sentAt?: string;
+  snoozedAt?: string;
+  snoozeCount?: number;
+  lastSnoozeDuration?: number;
+  telegramMessageId?: number;
   channel: MessagingChannel;
   recurrence?: ReminderRecurrence;
 }

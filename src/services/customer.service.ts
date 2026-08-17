@@ -1,10 +1,8 @@
-import { Customer, CustomerStats, UpsertCustomerInput } from '../types';
+import { ACTIVE_REMINDER_STATUSES, Customer, CustomerStats, UpsertCustomerInput } from '../types';
 
 import { CustomerRepository } from '../repositories/customer.repository';
 
 import { ReminderRepository } from '../repositories/reminder.repository';
-
-import { ReminderStatus } from '../types';
 
 import { config } from '../config';
 
@@ -56,7 +54,7 @@ export class CustomerService {
 
   async getStats(): Promise<CustomerStats> {
 
-    const scheduled = await this.reminderRepository.findByStatus(ReminderStatus.SCHEDULED);
+    const scheduled = await this.reminderRepository.findByStatuses(ACTIVE_REMINDER_STATUSES);
 
     const customerIds = scheduled
 
