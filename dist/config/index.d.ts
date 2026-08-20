@@ -9,38 +9,63 @@ declare const envSchema: z.ZodObject<{
     TELEGRAM_BOT_TOKEN: z.ZodString;
     TELEGRAM_WEBHOOK_SECRET: z.ZodString;
     DEFAULT_TIMEZONE: z.ZodDefault<z.ZodString>;
+    /** Telegram chat/user id for daily health + EOD reports (optional) */
+    ADMIN_TELEGRAM_CHAT_ID: z.ZodOptional<z.ZodString>;
+    MONGODB_URI: z.ZodString;
+    MONGODB_DB_NAME: z.ZodDefault<z.ZodString>;
+    JWT_SECRET: z.ZodDefault<z.ZodString>;
+    ADMIN_EMAIL: z.ZodDefault<z.ZodString>;
+    ADMIN_PASSWORD: z.ZodDefault<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     PORT: number;
     BASE_URL: string;
-    NODE_ENV: "development" | "production" | "test";
+    NODE_ENV: "test" | "development" | "production";
     AI_API_URL: string;
     AI_API_KEY: string;
     AI_MODEL: string;
     TELEGRAM_BOT_TOKEN: string;
     TELEGRAM_WEBHOOK_SECRET: string;
     DEFAULT_TIMEZONE: string;
+    MONGODB_URI: string;
+    MONGODB_DB_NAME: string;
+    JWT_SECRET: string;
+    ADMIN_EMAIL: string;
+    ADMIN_PASSWORD: string;
+    ADMIN_TELEGRAM_CHAT_ID?: string | undefined;
 }, {
     AI_API_URL: string;
     AI_API_KEY: string;
     AI_MODEL: string;
     TELEGRAM_BOT_TOKEN: string;
     TELEGRAM_WEBHOOK_SECRET: string;
+    MONGODB_URI: string;
     PORT?: number | undefined;
     BASE_URL?: string | undefined;
-    NODE_ENV?: "development" | "production" | "test" | undefined;
+    NODE_ENV?: "test" | "development" | "production" | undefined;
     DEFAULT_TIMEZONE?: string | undefined;
+    ADMIN_TELEGRAM_CHAT_ID?: string | undefined;
+    MONGODB_DB_NAME?: string | undefined;
+    JWT_SECRET?: string | undefined;
+    ADMIN_EMAIL?: string | undefined;
+    ADMIN_PASSWORD?: string | undefined;
 }>;
 export type EnvConfig = z.infer<typeof envSchema>;
 export declare const config: {
     PORT: number;
     BASE_URL: string;
-    NODE_ENV: "development" | "production" | "test";
+    NODE_ENV: "test" | "development" | "production";
     AI_API_URL: string;
     AI_API_KEY: string;
     AI_MODEL: string;
     TELEGRAM_BOT_TOKEN: string;
     TELEGRAM_WEBHOOK_SECRET: string;
     DEFAULT_TIMEZONE: string;
+    MONGODB_URI: string;
+    MONGODB_DB_NAME: string;
+    JWT_SECRET: string;
+    ADMIN_EMAIL: string;
+    ADMIN_PASSWORD: string;
+    ADMIN_TELEGRAM_CHAT_ID?: string | undefined;
 };
 export {};
 //# sourceMappingURL=index.d.ts.map

@@ -1,4 +1,4 @@
-import { IncomingMessage, MessagingProvider, OutgoingMessage } from '../messaging.provider';
+import { IncomingMessage, MessagingProvider, OutgoingMessage, SendMessageResult } from '../messaging.provider';
 /**
  * Stub WhatsApp provider.
  * Implement sendMessage / parseIncomingPayload against the WhatsApp Business Cloud API,
@@ -6,7 +6,7 @@ import { IncomingMessage, MessagingProvider, OutgoingMessage } from '../messagin
  */
 export declare class WhatsappProvider implements MessagingProvider {
     readonly channel = "whatsapp";
-    sendMessage(_message: OutgoingMessage): Promise<void>;
+    sendMessage(_message: OutgoingMessage): Promise<SendMessageResult>;
     parseIncomingPayload(_payload: unknown): IncomingMessage | null;
 }
 //# sourceMappingURL=whatsapp.provider.d.ts.map

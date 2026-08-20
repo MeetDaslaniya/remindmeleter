@@ -10,17 +10,18 @@ const logger_1 = require("../utils/logger");
 const errors_1 = require("../utils/errors");
 const datetime_1 = require("../utils/datetime");
 const recurrence_1 = require("../utils/recurrence");
+const snooze_options_1 = require("../config/snooze-options");
+const reminder_message_1 = require("../utils/reminder-message");
 /**
-
  * Dynamic scheduling via node-schedule.
-
- * One-shot jobs complete after firing; recurring jobs advance to the next occurrence.
-
+ * One-shot jobs wait for Complete/Snooze after firing; recurring jobs advance to the next occurrence.
  */
 class SchedulerService {
     reminderRepository;
     messagingProvider;
     jobs = new Map();
+    /** In-process guard against overlapping executeReminder for the same id. */
+    executing = new Set();
     constructor(reminderRepository, messagingProvider) {
         this.reminderRepository = reminderRepository;
         this.messagingProvider = messagingProvider;
@@ -39,7 +40,10 @@ class SchedulerService {
             return;
         }
         if (Number.isNaN(runAt.getTime())) {
-            logger_1.schedulerLogger.error('Invalid reminder datetime', { id: reminder.id, datetime: reminder.datetime });
+            logger_1.schedulerLogger.error('Invalid reminder datetime', {
+                id: reminder.id,
+                datetime: reminder.datetime,
+            });
             return;
         }
         if (runAt.getTime() <= Date.now()) {
@@ -68,59 +72,71 @@ class SchedulerService {
         });
     }
     cancelReminder(id) {
+        let cancelled = false;
         const existing = this.jobs.get(id);
-        if (!existing) {
-            return false;
+        if (existing) {
+            existing.cancel();
+            this.jobs.delete(id);
+            cancelled = true;
         }
-        existing.cancel();
-        this.jobs.delete(id);
-        logger_1.schedulerLogger.info('Reminder job cancelled', { id });
-        return true;
+        // Cancel any named job left in node-schedule's global registry
+        const named = node_schedule_1.default.scheduledJobs[id];
+        if (named) {
+            named.cancel();
+            cancelled = true;
+        }
+        if (cancelled) {
+            logger_1.schedulerLogger.info('Reminder job cancelled', { id });
+        }
+        return cancelled;
     }
     async executeReminder(id) {
-        logger_1.schedulerLogger.info('Executing reminder', { id });
-        const reminder = await this.reminderRepository.findById(id);
-        if (!reminder) {
-            logger_1.schedulerLogger.warn('Reminder not found during execution', { id });
-            this.jobs.delete(id);
+        if (this.executing.has(id)) {
+            logger_1.schedulerLogger.warn('Skipping duplicate in-process execution', { id });
             return;
         }
-        if (reminder.status !== types_1.ReminderStatus.SCHEDULED) {
-            logger_1.schedulerLogger.warn('Skipping non-scheduled reminder', {
-                id,
-                status: reminder.status,
-            });
-            this.jobs.delete(id);
-            return;
-        }
+        this.executing.add(id);
         try {
-            const text = [
-                '<b>⏰ Reminder</b>',
-                '',
-                reminder.reason,
-                ...(reminder.recurrence ? ['', `<i>${reminder.recurrence.summary}</i>`] : []),
-            ].join('\n');
-            await this.messagingProvider.sendMessage({
-                chatId: reminder.chatId,
-                text,
-                parseMode: 'HTML',
-            });
-            const rescheduled = await this.rescheduleIfRecurring(reminder);
-            if (!rescheduled) {
-                await this.reminderRepository.updateStatus(id, types_1.ReminderStatus.COMPLETED, {
-                    completedAt: new Date().toISOString(),
-                });
+            logger_1.schedulerLogger.info('Executing reminder', { id });
+            // Atomic claim across instances (Render multi-instance / race)
+            const reminder = await this.reminderRepository.claimForExecution(id);
+            if (!reminder) {
+                logger_1.schedulerLogger.warn('Reminder already claimed or not scheduled', { id });
                 this.jobs.delete(id);
-                logger_1.schedulerLogger.info('Reminder completed', { id, reason: reminder.reason });
+                return;
+            }
+            try {
+                const sent = await this.messagingProvider.sendMessage({
+                    chatId: reminder.chatId,
+                    text: (0, reminder_message_1.formatReminderFireHtml)(reminder),
+                    parseMode: 'HTML',
+                    inlineKeyboard: (0, snooze_options_1.reminderActionKeyboard)(reminder.id),
+                });
+                if (sent.messageId) {
+                    await this.reminderRepository.update(id, {
+                        telegramMessageId: Number(sent.messageId),
+                    });
+                }
+                const rescheduled = await this.rescheduleIfRecurring(reminder);
+                if (!rescheduled) {
+                    this.jobs.delete(id);
+                    logger_1.schedulerLogger.info('Reminder sent; waiting for Complete/Snooze', {
+                        id,
+                        reason: reminder.reason,
+                    });
+                }
+            }
+            catch (error) {
+                await this.reminderRepository.updateStatus(id, types_1.ReminderStatus.FAILED);
+                this.jobs.delete(id);
+                logger_1.schedulerLogger.error('Reminder execution failed', {
+                    id,
+                    error: error instanceof Error ? error.message : String(error),
+                });
             }
         }
-        catch (error) {
-            await this.reminderRepository.updateStatus(id, types_1.ReminderStatus.FAILED);
-            this.jobs.delete(id);
-            logger_1.schedulerLogger.error('Reminder execution failed', {
-                id,
-                error: error instanceof Error ? error.message : String(error),
-            });
+        finally {
+            this.executing.delete(id);
         }
     }
     async rescheduleIfRecurring(reminder) {
@@ -141,14 +157,16 @@ class SchedulerService {
         }
         const recurrence = {
             ...reminder.recurrence,
-            ...(Number.isFinite(remainingAfter)
-                ? { remainingCount: remainingAfter }
+            ...(Number.isFinite(remainingAfter) ? { remainingCount: remainingAfter } : {}),
+            ...(reminder.recurrence.totalCount !== undefined
+                ? { totalCount: reminder.recurrence.totalCount }
                 : {}),
         };
         const updated = await this.reminderRepository.update(reminder.id, {
             datetime: nextAt.toISOString(),
             recurrence,
             status: types_1.ReminderStatus.SCHEDULED,
+            completedAt: undefined,
         });
         if (!updated) {
             return false;
@@ -163,7 +181,10 @@ class SchedulerService {
         return true;
     }
     async restoreScheduledJobs() {
-        const scheduled = await this.reminderRepository.findByStatus(types_1.ReminderStatus.SCHEDULED);
+        const scheduled = await this.reminderRepository.findByStatuses([
+            types_1.ReminderStatus.SCHEDULED,
+            types_1.ReminderStatus.SNOOZED,
+        ]);
         let restored = 0;
         for (const reminder of scheduled) {
             this.scheduleReminder(reminder);

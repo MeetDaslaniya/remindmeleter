@@ -57,6 +57,24 @@ class AiService {
                 timezone: relative.timezone,
             };
         }
+        const calendarDate = (0, datetime_1.tryParseCalendarDateReminder)(message, this.defaultTimezone, referenceDate);
+        if (calendarDate) {
+            logger_1.logger.info('Parsed calendar-date reminder without AI', calendarDate);
+            return {
+                reason: calendarDate.reason,
+                datetime: calendarDate.datetimeUtc,
+                timezone: calendarDate.timezone,
+            };
+        }
+        const weekday = (0, datetime_1.tryParseWeekdayReminder)(message, this.defaultTimezone, referenceDate);
+        if (weekday) {
+            logger_1.logger.info('Parsed weekday reminder without AI', weekday);
+            return {
+                reason: weekday.reason,
+                datetime: weekday.datetimeUtc,
+                timezone: weekday.timezone,
+            };
+        }
         const explicitClock = (0, datetime_1.tryParseExplicitClockReminder)(message, this.defaultTimezone, referenceDate);
         if (explicitClock) {
             logger_1.logger.info('Parsed explicit clock reminder without AI', explicitClock);
@@ -113,9 +131,12 @@ class AiService {
             '- Do NOT include Z or an offset in datetime.',
             '',
             'Other rules:',
-            '- reason: short description of what to remind (no time words).',
+            '- reason: short description of what to remind (no time/date words).',
             '- timezone: IANA name such as Asia/Kolkata',
             '- Resolve relative phrases like "today", "tomorrow", "in 2 hours", "next Monday" using the LOCAL datetime above.',
+            '- For calendar dates like "15th September", "December 31st", datetime MUST use that month/day (and current or next year if year omitted), NOT today\'s date.',
+            '- Example: if today is 2026-08-06 and user says "on 15th September at 6:30 PM", datetime must be "2026-09-15T18:30:00".',
+            '- Example: "next Monday at 9:00 AM" must be the upcoming Monday date, not today.',
             '- This path is for ONE-SHOT reminders only. Recurring ("every Sunday", "every minute for next 5 minutes", "15 min before 9AM") is handled elsewhere.',
             '- If date or time cannot be determined confidently, return {"error":"ambiguous"}.',
         ].join('\n');

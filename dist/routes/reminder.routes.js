@@ -5,7 +5,12 @@ const zod_1 = require("zod");
 const reminder_controller_1 = require("../controllers/reminder.controller");
 const validate_1 = require("../middleware/validate");
 const idParamsSchema = zod_1.z.object({
-    id: zod_1.z.string().uuid(),
+    // MongoDB ObjectId (24 hex) or legacy UUID from in-memory era
+    id: zod_1.z
+        .string()
+        .min(1)
+        .refine((value) => /^[a-f\d]{24}$/i.test(value) ||
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value), { message: 'Invalid reminder id' }),
 });
 const router = (0, express_1.Router)();
 router.get('/', (req, res, next) => {

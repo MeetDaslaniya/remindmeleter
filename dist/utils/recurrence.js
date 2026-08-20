@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tryParseRecurringReminder = tryParseRecurringReminder;
+exports.nextMonthlyOccurrence = nextMonthlyOccurrence;
+exports.nextYearlyOccurrence = nextYearlyOccurrence;
 exports.computeNextOccurrence = computeNextOccurrence;
 exports.nextDailyOccurrence = nextDailyOccurrence;
 exports.nextWeeklyOccurrence = nextWeeklyOccurrence;
@@ -43,14 +45,238 @@ const UNIT_MS = {
  * - 15 min before … at 9:00AM (daily offset)
  */
 function tryParseRecurringReminder(message, timezone, now = new Date()) {
-    return (tryParseIntervalWindow(message, timezone, now) ??
+    return (tryParseYearly(message, timezone, now) ??
+        tryParseMonthly(message, timezone, now) ??
+        tryParseIntervalWindow(message, timezone, now) ??
         tryParseWeekly(message, timezone, now) ??
         tryParseBeforeOffsetDaily(message, timezone, now) ??
         tryParseEveryDayAt(message, timezone, now));
 }
-/** "every minute for next 5 minutes … drink water" */
+const MONTH_NAME_TO_INDEX = {
+    january: 1,
+    jan: 1,
+    february: 2,
+    feb: 2,
+    march: 3,
+    mar: 3,
+    april: 4,
+    apr: 4,
+    may: 5,
+    june: 6,
+    jun: 6,
+    july: 7,
+    jul: 7,
+    august: 8,
+    aug: 8,
+    september: 9,
+    sept: 9,
+    sep: 9,
+    october: 10,
+    oct: 10,
+    november: 11,
+    nov: 11,
+    december: 12,
+    dec: 12,
+};
+/**
+ * Monthly reminders, e.g.:
+ * - Remind me every month on the 1st at 8 AM to pay rent
+ * - Remind me monthly on the 15th at 9:00 PM to pay bills
+ * - Every month on 1st at 8:00 AM …
+ */
+function tryParseMonthly(message, timezone, now) {
+    if (!/\bevery\s+month\b|\bmonthly\b/i.test(message)) {
+        return null;
+    }
+    // Yearly phrases take precedence (handled earlier), but guard anyway.
+    if (/\bevery\s+year\b|\byearly\b|\bannually\b/i.test(message)) {
+        return null;
+    }
+    const dayMatch = message.match(/\bon\s+the\s+(\d{1,2})(?:st|nd|rd|th)?\b/i) ??
+        message.match(/\bon\s+(\d{1,2})(?:st|nd|rd|th)?\b/i);
+    if (!dayMatch) {
+        return null;
+    }
+    const dayOfMonth = Number(dayMatch[1]);
+    if (!Number.isFinite(dayOfMonth) || dayOfMonth < 1 || dayOfMonth > 31) {
+        return null;
+    }
+    const timeMatch = message.match(/\bat\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
+    const clock = timeMatch
+        ? parseClock(timeMatch[1], timeMatch[2], timeMatch[3])
+        : { hour: 0, minute: 0 };
+    if (!clock) {
+        return null;
+    }
+    const usedDefaultMidnight = !timeMatch;
+    const firstAt = nextMonthlyOccurrence(dayOfMonth, clock.hour, clock.minute, timezone, now);
+    const dayLabel = `${dayOfMonth}${ordinalSuffix(dayOfMonth)}`;
+    const summary = usedDefaultMidnight
+        ? `Every month on the ${dayLabel} at 12:00 AM`
+        : `Every month on the ${dayLabel} at ${formatClockLabel(clock.hour, clock.minute)}`;
+    const reason = extractReason(message, [
+        /\bevery\s+month\b/i,
+        /\bmonthly\b/i,
+        /\bon\s+the\s+\d{1,2}(?:st|nd|rd|th)?\b/i,
+        /\bon\s+\d{1,2}(?:st|nd|rd|th)?\b/i,
+        /\bat\s+\d{1,2}(?::\d{2})?\s*(am|pm)?\b/i,
+    ]);
+    return {
+        reason,
+        datetimeUtc: firstAt.toISOString(),
+        timezone,
+        recurrence: {
+            kind: 'monthly',
+            dayOfMonth,
+            hour: clock.hour,
+            minute: clock.minute,
+            summary,
+        },
+    };
+}
+/**
+ * Yearly / birthday reminders, e.g.:
+ * - Remind me on 13 september every year to celebrate with family
+ * - Remind me on my birthday 13 september every year to celebrate with family
+ * - Remind me on my birthday at 13 september every year …
+ * - Remind me on my birthday(13 september) every year …
+ * - Remind me every year on December 31st at 11:50 PM to watch the countdown
+ */
+function tryParseYearly(message, timezone, now) {
+    if (!/\bevery\s+year\b|\byearly\b|\bannually\b/i.test(message)) {
+        return null;
+    }
+    const md = extractMonthDayFromMessage(message);
+    if (!md) {
+        return null;
+    }
+    const timeMatch = message.match(/\bat\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
+    // Ignore "at 13 september" style — only treat as clock when hour looks like a time,
+    // i.e. has :mm or am/pm, OR hour is followed by something that isn't a month name.
+    let clock = { hour: 0, minute: 0 };
+    let usedDefaultMidnight = true;
+    if (timeMatch) {
+        const afterAt = message.slice(message.toLowerCase().indexOf(timeMatch[0].toLowerCase()) + timeMatch[0].length);
+        const looksLikeDateNotTime = !timeMatch[2] &&
+            !timeMatch[3] &&
+            /^\s*(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/i.test(afterAt);
+        if (!looksLikeDateNotTime) {
+            const parsed = parseClock(timeMatch[1], timeMatch[2], timeMatch[3]);
+            if (parsed) {
+                clock = parsed;
+                usedDefaultMidnight = false;
+            }
+        }
+    }
+    const firstAt = nextYearlyOccurrence(md.month, md.day, clock.hour, clock.minute, timezone, now);
+    const monthLabel = capitalize(Object.keys(MONTH_NAME_TO_INDEX).find((k) => MONTH_NAME_TO_INDEX[k] === md.month && k.length > 3) ?? String(md.month));
+    const summary = usedDefaultMidnight
+        ? `Every year on ${md.day} ${monthLabel} at 12:00 AM`
+        : `Every year on ${md.day} ${monthLabel} at ${formatClockLabel(clock.hour, clock.minute)}`;
+    const reason = extractReason(message, [
+        /\bon\s+my\s+birthday\b/i,
+        /\bmy\s+birthday\b/i,
+        /\bbirthday\s*/i,
+        /\bevery\s+year\b/i,
+        /\byearly\b/i,
+        /\bannually\b/i,
+        /\bat\s+\d{1,2}(?::\d{2})?\s*(am|pm)?\b/i,
+        /\bat\s+\d{1,2}(?:st|nd|rd|th)?\s+(?:of\s+)?(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/i,
+        /\b\d{1,2}(?:st|nd|rd|th)?\s+(?:of\s+)?(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/i,
+        /\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+\d{1,2}(?:st|nd|rd|th)?\b/i,
+        /\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/i,
+        /\b(?:on|for|at)\s+/i,
+        /[()]/g,
+    ]);
+    return {
+        reason,
+        datetimeUtc: firstAt.toISOString(),
+        timezone,
+        recurrence: {
+            kind: 'yearly',
+            month: md.month,
+            dayOfMonth: md.day,
+            hour: clock.hour,
+            minute: clock.minute,
+            summary,
+        },
+    };
+}
+function extractMonthDayFromMessage(message) {
+    // birthday(13 september) / birthday (13 sept)
+    const inParens = message.match(/\(\s*(\d{1,2})(?:st|nd|rd|th)?\s+(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sept|sep|october|oct|november|nov|december|dec)\s*\)/i);
+    if (inParens) {
+        return toMonthDay(Number(inParens[1]), inParens[2]);
+    }
+    // 13th september / 13 september
+    const dayFirst = message.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sept|sep|october|oct|november|nov|december|dec)\b/i);
+    if (dayFirst) {
+        return toMonthDay(Number(dayFirst[1]), dayFirst[2]);
+    }
+    // september 13th
+    const monthFirst = message.match(/\b(january|jan|february|feb|march|mar|april|apr|may|june|jun|july|jul|august|aug|september|sept|sep|october|oct|november|nov|december|dec)\s+(\d{1,2})(?:st|nd|rd|th)?\b/i);
+    if (monthFirst) {
+        return toMonthDay(Number(monthFirst[2]), monthFirst[1]);
+    }
+    return null;
+}
+function toMonthDay(day, monthName) {
+    const month = MONTH_NAME_TO_INDEX[monthName.toLowerCase()];
+    if (!month || day < 1 || day > 31) {
+        return null;
+    }
+    // Validate calendar day in a non-leap year for Feb 29 → still allow Feb 29
+    const probeYear = 2024; // leap year so Feb 29 ok
+    const probe = new Date(Date.UTC(probeYear, month - 1, day));
+    if (probe.getUTCMonth() !== month - 1 || probe.getUTCDate() !== day) {
+        return null;
+    }
+    return { month, day };
+}
+/** Next occurrence of day-of-month at local hour:minute strictly after `after`. */
+function nextMonthlyOccurrence(dayOfMonth, hour, minute, timezone, after) {
+    const localNow = (0, datetime_1.formatLocalIsoInTimeZone)(after, timezone);
+    let year = Number(localNow.slice(0, 4));
+    let month = Number(localNow.slice(5, 7));
+    for (let i = 0; i < 14; i += 1) {
+        const safeDay = clampDayForMonth(year, month, dayOfMonth);
+        const candidate = (0, datetime_1.zonedLocalDateTimeToUtc)(`${year}-${pad2(month)}-${pad2(safeDay)}T${pad2(hour)}:${pad2(minute)}:00`, timezone);
+        if (candidate.getTime() > after.getTime() + 1_000) {
+            return candidate;
+        }
+        month += 1;
+        if (month > 12) {
+            month = 1;
+            year += 1;
+        }
+    }
+    const safeDay = clampDayForMonth(year, month, dayOfMonth);
+    return (0, datetime_1.zonedLocalDateTimeToUtc)(`${year}-${pad2(month)}-${pad2(safeDay)}T${pad2(hour)}:${pad2(minute)}:00`, timezone);
+}
+/** Next occurrence of month/day at local hour:minute strictly after `after`. */
+function nextYearlyOccurrence(month, day, hour, minute, timezone, after) {
+    const localNow = (0, datetime_1.formatLocalIsoInTimeZone)(after, timezone);
+    let year = Number(localNow.slice(0, 4));
+    for (let i = 0; i < 6; i += 1) {
+        const safeDay = clampDayForMonth(year, month, day);
+        const candidate = (0, datetime_1.zonedLocalDateTimeToUtc)(`${year}-${pad2(month)}-${pad2(safeDay)}T${pad2(hour)}:${pad2(minute)}:00`, timezone);
+        if (candidate.getTime() > after.getTime() + 1_000) {
+            return candidate;
+        }
+        year += 1;
+    }
+    // Fallback — should be unreachable
+    const safeDay = clampDayForMonth(year, month, day);
+    return (0, datetime_1.zonedLocalDateTimeToUtc)(`${year}-${pad2(month)}-${pad2(safeDay)}T${pad2(hour)}:${pad2(minute)}:00`, timezone);
+}
+function clampDayForMonth(year, month, day) {
+    // Last day of month: day 0 of next month
+    const last = new Date(Date.UTC(year, month, 0)).getUTCDate();
+    return Math.min(day, last);
+}
+/** "every minute for next 5 minutes …" or "every 15 minutes 8 times …" or "every 2 hours until 8 PM" */
 function tryParseIntervalWindow(message, timezone, now) {
-    const match = message.match(/\bevery\s+(\d+)?\s*(minutes?|mins?|hours?|hrs?|days?)\b(?:\s+for\s+(?:the\s+)?next\s+(\d+)\s*(minutes?|mins?|hours?|hrs?|days?))?/i);
+    const match = message.match(/\bevery\s+(\d+)?\s*(minutes?|mins?|hours?|hrs?|days?)\b(?:\s+for\s+(?:the\s+)?next\s+(\d+)\s*(minutes?|mins?|hours?|hrs?|days?)|\s+(?:for\s+)?(\d+)\s*times?)?/i);
     if (!match) {
         return null;
     }
@@ -58,7 +284,7 @@ function tryParseIntervalWindow(message, timezone, now) {
     if (/\bevery\s+(sun|mon|tue|wed|thu|fri|sat|sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/i.test(message)) {
         return null;
     }
-    if (/\bevery\s+(day|morning|evening|night)\b/i.test(message) && /\bat\b/i.test(message)) {
+    if (/\bevery\s+(day|morning|evening|night|month|year)\b/i.test(message)) {
         return null;
     }
     const intervalAmount = match[1] ? Number(match[1]) : 1;
@@ -67,10 +293,12 @@ function tryParseIntervalWindow(message, timezone, now) {
     if (!intervalMs || intervalAmount <= 0) {
         return null;
     }
+    const firstAt = new Date(now.getTime() + intervalMs);
     let remainingCount;
     let endsAt;
     let summary;
     if (match[3] && match[4]) {
+        // "for the next 4 hours"
         const windowAmount = Number(match[3]);
         const windowUnit = match[4].toLowerCase();
         const windowMs = (UNIT_MS[windowUnit] ?? 0) * windowAmount;
@@ -81,14 +309,42 @@ function tryParseIntervalWindow(message, timezone, now) {
         endsAt = new Date(now.getTime() + windowMs + 5_000).toISOString();
         summary = `Every ${formatDuration(intervalAmount, intervalUnit)} for the next ${formatDuration(windowAmount, windowUnit)} (${remainingCount} times)`;
     }
-    else {
-        // Open-ended interval without a window is risky; require a window.
-        return null;
+    else if (match[5]) {
+        // "8 times" / "for 8 times"
+        remainingCount = Number(match[5]);
+        if (!Number.isFinite(remainingCount) || remainingCount <= 0) {
+            return null;
+        }
+        remainingCount = Math.min(remainingCount, 500);
+        endsAt = new Date(now.getTime() + intervalMs * remainingCount + 5_000).toISOString();
+        summary = `Every ${formatDuration(intervalAmount, intervalUnit)} (${remainingCount} times)`;
     }
-    const firstAt = new Date(now.getTime() + intervalMs);
+    else {
+        // "until 8 PM" / "till 8:00pm"
+        const until = resolveUntilClock(message, timezone, now);
+        if (!until) {
+            return null;
+        }
+        if (firstAt.getTime() > until.endsAt.getTime()) {
+            return null;
+        }
+        remainingCount = 0;
+        let cursor = firstAt.getTime();
+        while (cursor <= until.endsAt.getTime() && remainingCount < 500) {
+            remainingCount += 1;
+            cursor += intervalMs;
+        }
+        if (remainingCount <= 0) {
+            return null;
+        }
+        endsAt = new Date(until.endsAt.getTime() + 5_000).toISOString();
+        summary = `Every ${formatDuration(intervalAmount, intervalUnit)} until ${formatClockLabel(until.hour, until.minute)} (${remainingCount} times)`;
+    }
     const reason = extractReason(message, [
         /\bevery\s+(\d+)?\s*(minutes?|mins?|hours?|hrs?|days?)\b/i,
         /\bfor\s+(?:the\s+)?next\s+\d+\s*(minutes?|mins?|hours?|hrs?|days?)\b/i,
+        /\b(?:for\s+)?\d+\s*times?\b/i,
+        /\b(?:until|till)\s+\d{1,2}(?::\d{2})?\s*(am|pm)?\b/i,
     ]);
     return {
         reason,
@@ -98,12 +354,32 @@ function tryParseIntervalWindow(message, timezone, now) {
             kind: 'interval',
             intervalMs,
             remainingCount,
+            totalCount: remainingCount,
             endsAt,
             summary,
         },
     };
 }
-/** "every sunday at 6AM to play cricket" */
+/** Resolve "until 8 PM" to the next local clock instant (today if still ahead, else tomorrow). */
+function resolveUntilClock(message, timezone, now) {
+    const match = message.match(/\b(?:until|till)\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i);
+    if (!match) {
+        return null;
+    }
+    const clock = parseClock(match[1], match[2], match[3]);
+    if (!clock) {
+        return null;
+    }
+    const localNow = (0, datetime_1.formatLocalIsoInTimeZone)(now, timezone);
+    const datePart = localNow.slice(0, 10);
+    let endsAt = (0, datetime_1.zonedLocalDateTimeToUtc)(`${datePart}T${pad2(clock.hour)}:${pad2(clock.minute)}:00`, timezone);
+    if (endsAt.getTime() <= now.getTime() + 30_000) {
+        const nextDay = addDaysToDatePart(datePart, 1);
+        endsAt = (0, datetime_1.zonedLocalDateTimeToUtc)(`${nextDay}T${pad2(clock.hour)}:${pad2(clock.minute)}:00`, timezone);
+    }
+    return { endsAt, hour: clock.hour, minute: clock.minute };
+}
+/** "every sunday at 6AM …" or "every sunday to …" (defaults to 00:00) */
 function tryParseWeekly(message, timezone, now) {
     const match = message.match(/\bevery\s+(sunday|monday|tuesday|wednesday|thursday|friday|saturday|sun|mon|tue|tues|wed|thu|thur|thurs|fri|sat)\b(?:\s+at\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?)?/i);
     if (!match) {
@@ -113,16 +389,26 @@ function tryParseWeekly(message, timezone, now) {
     if (weekday === undefined) {
         return null;
     }
-    const clock = parseClock(match[2], match[3], match[4]);
-    if (!clock) {
-        return null;
-    }
+    // No clock given → midnight (00:00) local time.
+    const clock = parseClock(match[2], match[3], match[4]) ?? { hour: 0, minute: 0 };
+    const usedDefaultMidnight = match[2] === undefined;
     const firstAt = nextWeeklyOccurrence([weekday], clock.hour, clock.minute, timezone, now);
     const dayName = capitalize(match[1].toLowerCase());
-    const summary = `Every ${dayName} at ${formatClockLabel(clock.hour, clock.minute)}`;
+    const window = parseForNextWindow(message);
+    let summary = usedDefaultMidnight
+        ? `Every ${dayName} at 12:00 AM (midnight)`
+        : `Every ${dayName} at ${formatClockLabel(clock.hour, clock.minute)}`;
+    let remainingCount;
+    let endsAt;
+    if (window) {
+        endsAt = new Date(now.getTime() + window.windowMs + 5_000).toISOString();
+        remainingCount = countOccurrencesUntil('weekly', clock.hour, clock.minute, timezone, firstAt, new Date(endsAt), [weekday]);
+        summary = `${summary} for the next ${formatDuration(window.amount, window.unit)} (${remainingCount} times)`;
+    }
     const reason = extractReason(message, [
         /\bevery\s+(sunday|monday|tuesday|wednesday|thursday|friday|saturday|sun|mon|tue|tues|wed|thu|thur|thurs|fri|sat)\b/i,
         /\bat\s+\d{1,2}(?::\d{2})?\s*(am|pm)?\b/i,
+        /\bfor\s+(?:the\s+)?next\s+\d+\s*(minutes?|mins?|hours?|hrs?|days?|weeks?|months?)\b/i,
         /\bon\s+/i,
     ]);
     return {
@@ -135,24 +421,38 @@ function tryParseWeekly(message, timezone, now) {
             hour: clock.hour,
             minute: clock.minute,
             summary,
+            ...(remainingCount !== undefined
+                ? { remainingCount, totalCount: remainingCount }
+                : {}),
+            ...(endsAt ? { endsAt } : {}),
         },
     };
 }
-/** "every day at 9AM …" */
+/** "every day at 9AM …" optionally "for the next 30 days" */
 function tryParseEveryDayAt(message, timezone, now) {
     const match = message.match(/\bevery\s+day\b(?:\s+at\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?)?/i);
     if (!match) {
         return null;
     }
-    const clock = parseClock(match[1], match[2], match[3]);
-    if (!clock) {
-        return null;
-    }
+    // No clock given → midnight (00:00) local time.
+    const clock = parseClock(match[1], match[2], match[3]) ?? { hour: 0, minute: 0 };
+    const usedDefaultMidnight = match[1] === undefined;
     const firstAt = nextDailyOccurrence(clock.hour, clock.minute, timezone, now);
-    const summary = `Every day at ${formatClockLabel(clock.hour, clock.minute)}`;
+    const window = parseForNextWindow(message);
+    let summary = usedDefaultMidnight
+        ? 'Every day at 12:00 AM (midnight)'
+        : `Every day at ${formatClockLabel(clock.hour, clock.minute)}`;
+    let remainingCount;
+    let endsAt;
+    if (window) {
+        endsAt = new Date(now.getTime() + window.windowMs + 5_000).toISOString();
+        remainingCount = countOccurrencesUntil('daily', clock.hour, clock.minute, timezone, firstAt, new Date(endsAt));
+        summary = `${summary} for the next ${formatDuration(window.amount, window.unit)} (${remainingCount} times)`;
+    }
     const reason = extractReason(message, [
         /\bevery\s+day\b/i,
         /\bat\s+\d{1,2}(?::\d{2})?\s*(am|pm)?\b/i,
+        /\bfor\s+(?:the\s+)?next\s+\d+\s*(minutes?|mins?|hours?|hrs?|days?|weeks?|months?)\b/i,
     ]);
     return {
         reason,
@@ -163,6 +463,10 @@ function tryParseEveryDayAt(message, timezone, now) {
             hour: clock.hour,
             minute: clock.minute,
             summary,
+            ...(remainingCount !== undefined
+                ? { remainingCount, totalCount: remainingCount }
+                : {}),
+            ...(endsAt ? { endsAt } : {}),
         },
     };
 }
@@ -251,6 +555,23 @@ function computeNextOccurrence(reminder, after) {
         }
         return nextWeeklyOccurrence(recurrence.weekdays, recurrence.hour, recurrence.minute, reminder.timezone, after);
     }
+    if (recurrence.kind === 'monthly') {
+        if (recurrence.dayOfMonth === undefined ||
+            recurrence.hour === undefined ||
+            recurrence.minute === undefined) {
+            return null;
+        }
+        return nextMonthlyOccurrence(recurrence.dayOfMonth, recurrence.hour, recurrence.minute, reminder.timezone, after);
+    }
+    if (recurrence.kind === 'yearly') {
+        if (recurrence.month === undefined ||
+            recurrence.dayOfMonth === undefined ||
+            recurrence.hour === undefined ||
+            recurrence.minute === undefined) {
+            return null;
+        }
+        return nextYearlyOccurrence(recurrence.month, recurrence.dayOfMonth, recurrence.hour, recurrence.minute, reminder.timezone, after);
+    }
     return null;
 }
 function nextDailyOccurrence(hour, minute, timezone, after) {
@@ -332,13 +653,14 @@ function extractReason(message, stripPatterns) {
     let reason = message
         .replace(/^\s*(want\s+(a\s+)?)?reminder\s+(for\s+)?/i, '')
         .replace(/^\s*remind\s+me\s+(to\s+)?/i, '')
+        .replace(/^\s*ping\s+me\s+(to\s+)?/i, '')
+        .replace(/^\s*nag\s+me\s+(to\s+)?/i, '')
         .replace(/^\s*i\s+want\s+(a\s+)?reminder\s+(for\s+)?/i, '');
     for (const pattern of stripPatterns) {
         reason = reason.replace(pattern, ' ');
     }
     reason = reason
-        .replace(/\bto\s+/i, ' ')
-        .replace(/\bfor\s+/i, ' ')
+        .replace(/^\s*(to|for)\s+/i, '')
         .replace(/[.,!?]+$/g, '')
         .replace(/\s+,/g, ',')
         .replace(/,\s*$/g, '')
@@ -349,14 +671,80 @@ function extractReason(message, stripPatterns) {
     }
     return reason.charAt(0).toUpperCase() + reason.slice(1);
 }
+function parseForNextWindow(message) {
+    const match = message.match(/\bfor\s+(?:the\s+)?next\s+(\d+)\s*(minutes?|mins?|hours?|hrs?|days?|weeks?|months?)\b/i);
+    if (!match) {
+        return null;
+    }
+    const amount = Number(match[1]);
+    const unit = match[2].toLowerCase();
+    if (!Number.isFinite(amount) || amount <= 0) {
+        return null;
+    }
+    let windowMs = 0;
+    if (unit.startsWith('min')) {
+        windowMs = amount * 60_000;
+    }
+    else if (unit.startsWith('hour') || unit.startsWith('hr')) {
+        windowMs = amount * 3_600_000;
+    }
+    else if (unit.startsWith('day')) {
+        windowMs = amount * 86_400_000;
+    }
+    else if (unit.startsWith('week')) {
+        windowMs = amount * 7 * 86_400_000;
+    }
+    else if (unit.startsWith('month')) {
+        windowMs = amount * 30 * 86_400_000;
+    }
+    if (!windowMs) {
+        return null;
+    }
+    return { amount, unit, windowMs };
+}
+/**
+ * Count how many occurrences fit from firstAt through endsAt (inclusive of first).
+ */
+function countOccurrencesUntil(kind, hour, minute, timezone, firstAt, endsAt, weekdays) {
+    let count = 0;
+    let cursor = firstAt;
+    while (cursor.getTime() <= endsAt.getTime() && count < 1000) {
+        count += 1;
+        cursor =
+            kind === 'daily'
+                ? nextDailyOccurrence(hour, minute, timezone, cursor)
+                : nextWeeklyOccurrence(weekdays ?? [], hour, minute, timezone, cursor);
+    }
+    return Math.max(1, count);
+}
 function formatDuration(amount, unit) {
     const normalized = unit.replace(/s$/i, '').toLowerCase();
     const label = normalized.startsWith('min')
         ? 'minute'
         : normalized.startsWith('hour') || normalized.startsWith('hr')
             ? 'hour'
-            : 'day';
+            : normalized.startsWith('week')
+                ? 'week'
+                : normalized.startsWith('month')
+                    ? 'month'
+                    : 'day';
     return `${amount} ${label}${amount === 1 ? '' : 's'}`;
+}
+function ordinalSuffix(day) {
+    const mod100 = day % 100;
+    if (mod100 >= 11 && mod100 <= 13) {
+        return 'th';
+    }
+    switch (day % 10) {
+        case 1:
+            return 'st';
+        case 2:
+            return 'nd';
+        case 3:
+            return 'rd';
+        default:
+            return 'th';
+    }
 }
 function formatClockLabel(hour, minute) {
     const meridiem = hour >= 12 ? 'PM' : 'AM';

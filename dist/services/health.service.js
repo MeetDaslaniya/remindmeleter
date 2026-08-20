@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HealthService = void 0;
+const connection_1 = require("../db/connection");
 class HealthService {
     schedulerService;
     aiService;
@@ -14,14 +15,16 @@ class HealthService {
     async getStatus() {
         const stats = await this.reminderService.getStats();
         const mem = process.memoryUsage();
+        const mongodb = (0, connection_1.isMongoConnected)();
         const services = {
             scheduler: true,
             messaging: true,
             ai: this.aiService.isConfigured(),
+            mongodb,
         };
-        const allOk = services.scheduler && services.messaging && services.ai;
+        const allOk = services.scheduler && services.messaging && services.ai && services.mongodb;
         return {
-            status: allOk ? 'healthy' : 'degraded',
+            status: allOk ? 'healthy' : mongodb ? 'degraded' : 'unhealthy',
             timestamp: new Date().toISOString(),
             uptime: Math.floor((Date.now() - this.startedAt) / 1000),
             memory: {

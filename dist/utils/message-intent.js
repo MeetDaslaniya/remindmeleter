@@ -16,6 +16,9 @@ function looksLikeReminderIntent(text) {
     if (/\bremind\b/.test(normalized)) {
         return true;
     }
+    if (/\bping\s+me\b/.test(normalized)) {
+        return true;
+    }
     if (/\bnag\s+me\b/.test(normalized)) {
         return true;
     }
@@ -25,13 +28,19 @@ function looksLikeReminderIntent(text) {
     if (/\bevery\b/.test(normalized)) {
         return true;
     }
+    if (/\bmonthly\b|\bannually\b|\byearly\b/.test(normalized)) {
+        return true;
+    }
     if (/\b\d+\s*(minutes?|mins?|hours?|hrs?)\s+before\b/.test(normalized)) {
         return true;
     }
     if (/\bbefore\s+\d+\s*(minutes?|mins?|hours?|hrs?)\b/.test(normalized)) {
         return true;
     }
-    if (/\bin\s+\d+\s*(minute|min|mins|hour|hours|hr|hrs|day|days)\b/.test(normalized)) {
+    if (/\b(?:in|after)\s+\d+\s*(minute|min|mins|hour|hours|hr|hrs|day|days)\b/.test(normalized)) {
+        return true;
+    }
+    if (/\buntil\b|\btill\b/.test(normalized) && /\bevery\b/.test(normalized)) {
         return true;
     }
     if (/\b(today|tomorrow|tonight)\b/.test(normalized) && /\b(at|by)\b/.test(normalized)) {

@@ -2,10 +2,18 @@
  * Messaging provider adapter — implement for WhatsApp, Slack, Discord, etc.
  * Business logic depends only on this interface.
  */
+export interface InlineKeyboardButton {
+    text: string;
+    callbackData: string;
+}
 export interface OutgoingMessage {
     chatId: string;
     text: string;
     parseMode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+    inlineKeyboard?: InlineKeyboardButton[][];
+}
+export interface SendMessageResult {
+    messageId?: string;
 }
 export interface IncomingMessage {
     messageId: string;
@@ -13,11 +21,13 @@ export interface IncomingMessage {
     userId: string;
     text: string;
     username?: string;
+    firstName?: string;
+    lastName?: string;
     timestamp: number;
 }
 export interface MessagingProvider {
     readonly channel: string;
-    sendMessage(message: OutgoingMessage): Promise<void>;
+    sendMessage(message: OutgoingMessage): Promise<SendMessageResult>;
     parseIncomingPayload(payload: unknown): IncomingMessage | null;
 }
 //# sourceMappingURL=messaging.provider.d.ts.map

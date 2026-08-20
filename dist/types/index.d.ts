@@ -1,30 +1,41 @@
 export declare enum ReminderStatus {
     SCHEDULED = "scheduled",
+    SENT = "sent",
+    SNOOZED = "snoozed",
     COMPLETED = "completed",
     CANCELLED = "cancelled",
     FAILED = "failed"
 }
+/** Upcoming or waiting-for-user reminders (shown in /list, restored by the scheduler). */
+export declare const ACTIVE_REMINDER_STATUSES: ReminderStatus[];
 /** How a reminder repeats after the first fire. */
-export type RecurrenceKind = 'interval' | 'daily' | 'weekly';
+export type RecurrenceKind = 'interval' | 'daily' | 'weekly' | 'monthly' | 'yearly';
 export interface ReminderRecurrence {
     kind: RecurrenceKind;
     /** Interval between firings (interval kind). */
     intervalMs?: number;
     /** Local weekdays 0=Sun … 6=Sat (weekly kind). */
     weekdays?: number[];
-    /** Local hour 0–23 (daily / weekly). */
+    /** Month 1–12 (yearly kind). */
+    month?: number;
+    /** Day of month 1–31 (monthly / yearly). */
+    dayOfMonth?: number;
+    /** Local hour 0–23 (daily / weekly / monthly / yearly). */
     hour?: number;
-    /** Local minute 0–59 (daily / weekly). */
+    /** Local minute 0–59 (daily / weekly / monthly / yearly). */
     minute?: number;
     /** Stop scheduling after this UTC instant. */
     endsAt?: string;
     /** Occurrences left including the currently scheduled one. */
     remainingCount?: number;
+    /** Original total occurrences when a fixed count/window was set (for 3/8 progress). */
+    totalCount?: number;
     /** Short human summary for UI / Telegram confirm. */
     summary: string;
 }
 export interface Reminder {
     id: string;
+    customerId?: string;
     telegramUserId: string;
     chatId: string;
     originalMessage: string;
@@ -35,10 +46,30 @@ export interface Reminder {
     createdAt: string;
     updatedAt: string;
     completedAt?: string;
+    sentAt?: string;
+    snoozedAt?: string;
+    snoozeCount?: number;
+    lastSnoozeDuration?: number;
+    telegramMessageId?: number;
     channel: MessagingChannel;
     recurrence?: ReminderRecurrence;
 }
 export type MessagingChannel = 'telegram' | 'whatsapp' | 'messenger' | 'slack' | 'discord';
+export interface Customer {
+    id: string;
+    telegramUserId: string;
+    chatId: string;
+    username?: string;
+    firstName?: string;
+    lastName?: string;
+    timezone: string;
+    channel: MessagingChannel;
+    reminderCount: number;
+    messageCount: number;
+    createdAt: string;
+    updatedAt: string;
+    lastSeenAt: string;
+}
 export interface ParsedReminder {
     reason: string;
     datetime: string;
@@ -54,6 +85,16 @@ export interface CreateReminderInput {
     timezone: string;
     channel?: MessagingChannel;
     recurrence?: ReminderRecurrence;
+    customerId?: string;
+}
+export interface UpsertCustomerInput {
+    telegramUserId: string;
+    chatId: string;
+    username?: string;
+    firstName?: string;
+    lastName?: string;
+    timezone?: string;
+    channel?: MessagingChannel;
 }
 export interface ReminderStats {
     total: number;
@@ -62,6 +103,12 @@ export interface ReminderStats {
     cancelled: number;
     failed: number;
     today: number;
+    customers: number;
+}
+export interface CustomerStats {
+    total: number;
+    activeToday: number;
+    withScheduledReminders: number;
 }
 export interface ReminderAnalytics {
     statusBreakdown: {
@@ -101,17 +148,12 @@ export interface HealthStatus {
         scheduler: boolean;
         messaging: boolean;
         ai: boolean;
+        mongodb: boolean;
     };
     reminders: {
         scheduled: number;
         activeJobs: number;
     };
-}
-export interface PublicUrlCheck {
-    live: boolean;
-    statusCode?: number;
-    latencyMs?: number;
-    error?: string;
 }
 export interface WebhookStatus {
     configured: boolean;
@@ -125,15 +167,11 @@ export interface WebhookStatus {
 }
 export interface SystemStatus {
     baseUrl: string;
-    publicUrl: PublicUrlCheck;
     localApi: HealthStatus;
     webhook: WebhookStatus;
     checkedAt: string;
 }
 export interface WebhookSyncResult {
     webhookUrl: string;
-}
-export interface BaseUrlUpdateResult {
-    baseUrl: string;
 }
 //# sourceMappingURL=index.d.ts.map
