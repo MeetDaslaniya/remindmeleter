@@ -111,6 +111,51 @@ export class VoxellanceController {
       next(error);
     }
   }
+
+  /**
+   * Update allowed flag for a user
+   * Body: { username, allowed } (also accepts 'flag')
+   */
+  async updateAllowed(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const username = String(req.body?.username ?? '').trim().toLowerCase();
+      const allowedInput = req.body?.allowed !== undefined ? req.body?.allowed : req.body?.flag;
+
+      if (!username) {
+        sendError(res, 'username is required', 400);
+        return;
+      }
+
+      if (typeof allowedInput !== 'boolean') {
+        sendError(res, 'allowed (or flag) must be a boolean (true or false)', 400);
+        return;
+      }
+
+      const user = await VoxellanceModel.findOneAndUpdate(
+        { username },
+        { $set: { allowed: allowedInput } },
+        { new: true }
+      );
+
+      if (!user) {
+        sendError(res, `User with username '${username}' not found`, 404);
+        return;
+      }
+
+      sendSuccess(
+        res,
+        {
+          id: user._id,
+          username: user.username,
+          allowed: user.allowed,
+          updatedAt: user.updatedAt,
+        },
+        'Allowed flag updated successfully'
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const voxellanceController = new VoxellanceController();
