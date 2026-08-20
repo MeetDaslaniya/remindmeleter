@@ -12,9 +12,8 @@ import customerRoutes from './customer.routes';
 
 import authRoutes from './auth.routes';
 
+import voxellanceRoutes from './voxellance.routes';
 import { requireAdmin } from '../middleware/auth';
-
-
 
 const router = Router();
 
@@ -24,10 +23,9 @@ router.get('/success', (_req, res) => {
 });
 
 router.use('/health', healthRoutes);
-
 router.use('/telegram', telegramRoutes);
-
 router.use('/api/auth', authRoutes);
+router.use('/api/voxellance', voxellanceRoutes);
 
 
 
