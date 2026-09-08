@@ -23,13 +23,15 @@ export const CALLBACK_PREFIX = {
   snooze: 'reminder_snooze',
   snoozeOpt: 'reminder_snooze_opt',
   actions: 'reminder_actions',
+  stopSeries: 'reminder_stop_series',
 } as const;
 
 export type ReminderCallbackAction =
   | { type: 'complete'; reminderId: string }
   | { type: 'snooze'; reminderId: string }
   | { type: 'snooze_opt'; reminderId: string; optionId: number }
-  | { type: 'actions'; reminderId: string };
+  | { type: 'actions'; reminderId: string }
+  | { type: 'stop_series'; reminderId: string };
 
 export function findSnoozeOption(optionId: number): SnoozeOption | undefined {
   return SNOOZE_OPTIONS.find((option) => option.id === optionId);
@@ -51,12 +53,21 @@ export function actionsCallbackData(reminderId: string): string {
   return `${CALLBACK_PREFIX.actions}:${reminderId}`;
 }
 
+export function stopSeriesCallbackData(reminderId: string): string {
+  return `${CALLBACK_PREFIX.stopSeries}:${reminderId}`;
+}
+
 export function parseReminderCallbackData(data: string): ReminderCallbackAction | null {
   const trimmed = data.trim();
 
   if (trimmed.startsWith(`${CALLBACK_PREFIX.complete}:`)) {
     const reminderId = trimmed.slice(CALLBACK_PREFIX.complete.length + 1);
     return reminderId ? { type: 'complete', reminderId } : null;
+  }
+
+  if (trimmed.startsWith(`${CALLBACK_PREFIX.stopSeries}:`)) {
+    const reminderId = trimmed.slice(CALLBACK_PREFIX.stopSeries.length + 1);
+    return reminderId ? { type: 'stop_series', reminderId } : null;
   }
 
   if (trimmed.startsWith(`${CALLBACK_PREFIX.snoozeOpt}:`)) {
@@ -86,7 +97,22 @@ export function parseReminderCallbackData(data: string): ReminderCallbackAction 
   return null;
 }
 
-export function reminderActionKeyboard(reminderId: string): InlineKeyboard {
+export function reminderActionKeyboard(
+  reminderId: string,
+  isRecurring = false
+): InlineKeyboard {
+  if (isRecurring) {
+    return [
+      [
+        { text: '✅ Done', callbackData: completeCallbackData(reminderId) },
+        { text: '😴 Snooze', callbackData: snoozeCallbackData(reminderId) },
+      ],
+      [
+        { text: '🛑 Stop Repeating', callbackData: stopSeriesCallbackData(reminderId) },
+      ],
+    ];
+  }
+
   return [
     [
       { text: '✅ Completed', callbackData: completeCallbackData(reminderId) },

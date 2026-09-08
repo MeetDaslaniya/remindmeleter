@@ -105,19 +105,20 @@ class SchedulerService {
                 this.jobs.delete(id);
                 return;
             }
+            const wasSnoozed = reminder.status === types_1.ReminderStatus.SNOOZED;
             try {
                 const sent = await this.messagingProvider.sendMessage({
                     chatId: reminder.chatId,
                     text: (0, reminder_message_1.formatReminderFireHtml)(reminder),
                     parseMode: 'HTML',
-                    inlineKeyboard: (0, snooze_options_1.reminderActionKeyboard)(reminder.id),
+                    inlineKeyboard: (0, snooze_options_1.reminderActionKeyboard)(reminder.id, Boolean(reminder.recurrence)),
                 });
                 if (sent.messageId) {
                     await this.reminderRepository.update(id, {
                         telegramMessageId: Number(sent.messageId),
                     });
                 }
-                const rescheduled = await this.rescheduleIfRecurring(reminder);
+                const rescheduled = await this.rescheduleIfRecurring(reminder, wasSnoozed);
                 if (!rescheduled) {
                     this.jobs.delete(id);
                     logger_1.schedulerLogger.info('Reminder sent; waiting for Complete/Snooze', {
@@ -139,11 +140,13 @@ class SchedulerService {
             this.executing.delete(id);
         }
     }
-    async rescheduleIfRecurring(reminder) {
+    async rescheduleIfRecurring(reminder, wasSnoozed = false) {
         if (!reminder.recurrence) {
             return false;
         }
-        const remainingAfter = (reminder.recurrence.remainingCount ?? Number.POSITIVE_INFINITY) - 1;
+        const remainingAfter = wasSnoozed
+            ? (reminder.recurrence.remainingCount ?? Number.POSITIVE_INFINITY)
+            : (reminder.recurrence.remainingCount ?? Number.POSITIVE_INFINITY) - 1;
         if (remainingAfter <= 0) {
             return false;
         }
@@ -177,6 +180,7 @@ class SchedulerService {
             id: reminder.id,
             nextAt: nextAt.toISOString(),
             remainingCount: recurrence.remainingCount,
+            wasSnoozed,
         });
         return true;
     }

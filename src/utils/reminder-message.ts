@@ -1,5 +1,5 @@
 import { Reminder } from '../types';
-import { formatInTimeZone } from './datetime';
+import { formatInTimeZone, resolveToUtcDate } from './datetime';
 
 export function formatReminderFireHtml(reminder: Reminder): string {
   const lines = ['<b>⏰ Reminder</b>', '', reminder.reason];
@@ -27,12 +27,42 @@ export function formatReminderFireHtml(reminder: Reminder): string {
   return lines.join('\n');
 }
 
-export function formatReminderCompletedHtml(reminder: Reminder): string {
+export function formatReminderCompletedHtml(
+  reminder: Reminder,
+  isRecurringOccurrence = false
+): string {
+  if (isRecurringOccurrence) {
+    const lines = ['<b>✅ Done</b>', '', reminder.reason];
+    if (reminder.datetime) {
+      try {
+        const nextDate = resolveToUtcDate(reminder.datetime, reminder.timezone);
+        const when = formatInTimeZone(nextDate, reminder.timezone);
+        lines.push('', `🔁 <b>Next reminder:</b> ${when} (${reminder.timezone})`);
+      } catch {
+        // ignore format error
+      }
+    }
+    if (reminder.recurrence?.summary) {
+      lines.push(`<i>${reminder.recurrence.summary}</i>`);
+    }
+    return lines.join('\n');
+  }
+
   const lines = ['<b>✅ Completed</b>', '', reminder.reason];
   if (reminder.recurrence) {
-    lines.push('', '<i>Repeating reminder stopped.</i>');
+    lines.push('', '<i>Repeating reminder completed.</i>');
   }
   return lines.join('\n');
+}
+
+export function formatReminderSeriesStoppedHtml(reminder: Reminder): string {
+  return [
+    '<b>🛑 Repeating stopped</b>',
+    '',
+    reminder.reason,
+    '',
+    '<i>Future recurring reminders have been stopped.</i>',
+  ].join('\n');
 }
 
 export function formatReminderSnoozedHtml(reminder: Reminder, nextAt: Date): string {

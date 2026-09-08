@@ -116,12 +116,14 @@ export class SchedulerService {
         return;
       }
 
+      const wasSnoozed = reminder.status === ReminderStatus.SNOOZED;
+
       try {
         const sent = await this.messagingProvider.sendMessage({
           chatId: reminder.chatId,
           text: formatReminderFireHtml(reminder),
           parseMode: 'HTML',
-          inlineKeyboard: reminderActionKeyboard(reminder.id),
+          inlineKeyboard: reminderActionKeyboard(reminder.id, Boolean(reminder.recurrence)),
         });
 
         if (sent.messageId) {
@@ -130,7 +132,7 @@ export class SchedulerService {
           });
         }
 
-        const rescheduled = await this.rescheduleIfRecurring(reminder);
+        const rescheduled = await this.rescheduleIfRecurring(reminder, wasSnoozed);
         if (!rescheduled) {
           this.jobs.delete(id);
           schedulerLogger.info('Reminder sent; waiting for Complete/Snooze', {
@@ -151,12 +153,18 @@ export class SchedulerService {
     }
   }
 
-  private async rescheduleIfRecurring(reminder: Reminder): Promise<boolean> {
+  private async rescheduleIfRecurring(
+    reminder: Reminder,
+    wasSnoozed = false
+  ): Promise<boolean> {
     if (!reminder.recurrence) {
       return false;
     }
 
-    const remainingAfter = (reminder.recurrence.remainingCount ?? Number.POSITIVE_INFINITY) - 1;
+    const remainingAfter = wasSnoozed
+      ? (reminder.recurrence.remainingCount ?? Number.POSITIVE_INFINITY)
+      : (reminder.recurrence.remainingCount ?? Number.POSITIVE_INFINITY) - 1;
+
     if (remainingAfter <= 0) {
       return false;
     }
@@ -198,6 +206,7 @@ export class SchedulerService {
       id: reminder.id,
       nextAt: nextAt.toISOString(),
       remainingCount: recurrence.remainingCount,
+      wasSnoozed,
     });
     return true;
   }

@@ -22,6 +22,7 @@ import { logger } from '../utils/logger';
 import {
   formatReminderCompletedHtml,
   formatReminderFireHtml,
+  formatReminderSeriesStoppedHtml,
   formatReminderSnoozedHtml,
   formatSnoozePromptHtml,
 } from '../utils/reminder-message';
@@ -56,6 +57,9 @@ export class ReminderActionService {
       if (parsed.type === 'complete') {
         return await this.completeReminder(parsed.reminderId, callback);
       }
+      if (parsed.type === 'stop_series') {
+        return await this.stopRepeatingSeries(parsed.reminderId, callback);
+      }
       if (parsed.type === 'snooze') {
         return await this.showSnoozeOptions(parsed.reminderId, callback);
       }
@@ -77,6 +81,41 @@ export class ReminderActionService {
     reminderId: string,
     callback: TelegramCallbackQuery
   ): Promise<string> {
+    const existing = await this.reminderRepository.findOwnedById(reminderId, callback.userId);
+    if (!existing) {
+      return 'Reminder not found';
+    }
+    if (existing.status === ReminderStatus.COMPLETED) {
+      await this.editReminderMessage(
+        existing,
+        callback,
+        formatReminderCompletedHtml(existing, false),
+        null
+      );
+      return 'Already completed';
+    }
+    if (existing.status === ReminderStatus.CANCELLED) {
+      return 'This reminder was cancelled';
+    }
+
+    // If it's a recurring reminder and still has an active scheduled occurrence:
+    // Acknowledging this occurrence should NOT cancel future occurrences or stop the series.
+    if (existing.recurrence && existing.status === ReminderStatus.SCHEDULED) {
+      await this.editReminderMessage(
+        existing,
+        callback,
+        formatReminderCompletedHtml(existing, true),
+        null
+      );
+      logger.info('Recurring reminder occurrence marked done by user', {
+        id: existing.id,
+        telegramUserId: callback.userId,
+        nextDatetime: existing.datetime,
+      });
+      return 'Marked as done. Next reminder scheduled!';
+    }
+
+    // For one-off reminder OR recurring reminder that reached its final occurrence
     const completedAt = new Date().toISOString();
     const updated = await this.reminderRepository.completeOwned(
       reminderId,
@@ -89,7 +128,7 @@ export class ReminderActionService {
       await this.editReminderMessage(
         updated,
         callback,
-        formatReminderCompletedHtml(updated),
+        formatReminderCompletedHtml(updated, false),
         null
       );
       logger.info('Reminder completed by user', {
@@ -99,23 +138,41 @@ export class ReminderActionService {
       return 'Completed';
     }
 
+    return 'This reminder cannot be completed';
+  }
+
+  async stopRepeatingSeries(
+    reminderId: string,
+    callback: TelegramCallbackQuery
+  ): Promise<string> {
     const existing = await this.reminderRepository.findOwnedById(reminderId, callback.userId);
     if (!existing) {
       return 'Reminder not found';
     }
-    if (existing.status === ReminderStatus.COMPLETED) {
+    if (existing.status === ReminderStatus.COMPLETED || existing.status === ReminderStatus.CANCELLED) {
+      return 'Already stopped';
+    }
+
+    this.schedulerService.cancelReminder(reminderId);
+    const updated = await this.reminderRepository.updateStatus(reminderId, ReminderStatus.CANCELLED, {
+      completedAt: new Date().toISOString(),
+    });
+
+    if (updated) {
       await this.editReminderMessage(
-        existing,
+        updated,
         callback,
-        formatReminderCompletedHtml(existing),
+        formatReminderSeriesStoppedHtml(updated),
         null
       );
-      return 'Already completed';
+      logger.info('Recurring reminder stopped by user', {
+        id: updated.id,
+        telegramUserId: callback.userId,
+      });
+      return 'Repeating reminder stopped';
     }
-    if (existing.status === ReminderStatus.CANCELLED) {
-      return 'This reminder was cancelled';
-    }
-    return 'This reminder cannot be completed';
+
+    return 'Could not stop reminder';
   }
 
   async showSnoozeOptions(
@@ -242,7 +299,7 @@ export class ReminderActionService {
       reminder,
       callback,
       formatReminderFireHtml(reminder),
-      reminderActionKeyboard(reminder.id)
+      reminderActionKeyboard(reminder.id, Boolean(reminder.recurrence))
     );
     return undefined;
   }

@@ -1993,3 +1993,12 @@
 2026-08-06 17:00:00 [warn]: Reminder already claimed or not scheduled {"service":"scheduler","id":"6a742ed0208b809d13f76de5"}
 2026-08-06 18:30:00 [info]: Executing reminder {"service":"scheduler","id":"6a741afde82bf4056f28cdb5"}
 2026-08-06 18:30:00 [warn]: Reminder already claimed or not scheduled {"service":"scheduler","id":"6a741afde82bf4056f28cdb5"}
+2026-09-08 10:23:32 [info]: Executing reminder {"service":"scheduler","id":"a0f088e4-8e67-4774-aaba-8bc7672adb71"}
+2026-09-08 10:23:32 [info]: Reminder scheduled {"service":"scheduler","id":"a0f088e4-8e67-4774-aaba-8bc7672adb71","runAt":"2026-09-09T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Take medicine","recurrence":"daily"}
+2026-09-08 10:23:32 [info]: Recurring reminder advanced {"service":"scheduler","id":"a0f088e4-8e67-4774-aaba-8bc7672adb71","nextAt":"2026-09-09T03:30:00.000Z","remainingCount":4,"wasSnoozed":false}
+2026-09-08 10:23:32 [info]: Recurring reminder occurrence marked done by user {"id":"a0f088e4-8e67-4774-aaba-8bc7672adb71","telegramUserId":"user-1","nextDatetime":"2026-09-09T03:30:00.000Z"}
+2026-09-08 10:23:32 [info]: Reminder job cancelled {"service":"scheduler","id":"a0f088e4-8e67-4774-aaba-8bc7672adb71"}
+2026-09-08 10:23:32 [info]: Recurring reminder stopped by user {"id":"a0f088e4-8e67-4774-aaba-8bc7672adb71","telegramUserId":"user-1"}
+2026-09-08 10:23:32 [info]: Executing reminder {"service":"scheduler","id":"5ce99caa-c2f1-4194-8384-49cd3204c7e0"}
+2026-09-08 10:23:32 [info]: Reminder sent; waiting for Complete/Snooze {"service":"scheduler","id":"5ce99caa-c2f1-4194-8384-49cd3204c7e0","reason":"Stretch"}
+2026-09-08 10:23:32 [info]: Reminder completed by user {"id":"5ce99caa-c2f1-4194-8384-49cd3204c7e0","telegramUserId":"user-1"}
