@@ -2002,3 +2002,22 @@
 2026-09-08 10:23:32 [info]: Executing reminder {"service":"scheduler","id":"5ce99caa-c2f1-4194-8384-49cd3204c7e0"}
 2026-09-08 10:23:32 [info]: Reminder sent; waiting for Complete/Snooze {"service":"scheduler","id":"5ce99caa-c2f1-4194-8384-49cd3204c7e0","reason":"Stretch"}
 2026-09-08 10:23:32 [info]: Reminder completed by user {"id":"5ce99caa-c2f1-4194-8384-49cd3204c7e0","telegramUserId":"user-1"}
+2026-09-08 10:23:43 [info]: Executing reminder {"service":"scheduler","id":"2491bf2f-6bbe-423c-9f76-2cbaeb94c56c"}
+2026-09-08 10:23:43 [info]: Reminder scheduled {"service":"scheduler","id":"2491bf2f-6bbe-423c-9f76-2cbaeb94c56c","runAt":"2026-09-09T03:30:00.000Z","timezone":"Asia/Kolkata","reason":"Take medicine","recurrence":"daily"}
+2026-09-08 10:23:43 [info]: Recurring reminder advanced {"service":"scheduler","id":"2491bf2f-6bbe-423c-9f76-2cbaeb94c56c","nextAt":"2026-09-09T03:30:00.000Z","remainingCount":4,"wasSnoozed":false}
+2026-09-08 10:23:43 [info]: Recurring reminder occurrence marked done by user {"id":"2491bf2f-6bbe-423c-9f76-2cbaeb94c56c","telegramUserId":"user-1","nextDatetime":"2026-09-09T03:30:00.000Z"}
+2026-09-08 10:23:43 [info]: Reminder job cancelled {"service":"scheduler","id":"2491bf2f-6bbe-423c-9f76-2cbaeb94c56c"}
+2026-09-08 10:23:43 [info]: Recurring reminder stopped by user {"id":"2491bf2f-6bbe-423c-9f76-2cbaeb94c56c","telegramUserId":"user-1"}
+2026-09-08 10:23:43 [info]: Executing reminder {"service":"scheduler","id":"27232b05-0590-4c0d-819c-6e1d7d49bba8"}
+2026-09-08 10:23:43 [info]: Reminder sent; waiting for Complete/Snooze {"service":"scheduler","id":"27232b05-0590-4c0d-819c-6e1d7d49bba8","reason":"Stretch"}
+2026-09-08 10:23:43 [info]: Reminder completed by user {"id":"27232b05-0590-4c0d-819c-6e1d7d49bba8","telegramUserId":"user-1"}
+2026-09-08 10:23:43 [info]: Executing reminder {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6"}
+2026-09-08 10:23:43 [info]: Reminder scheduled {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6","runAt":"2026-09-09T04:30:00.000Z","timezone":"Asia/Kolkata","reason":"Drink water","recurrence":"daily"}
+2026-09-08 10:23:43 [info]: Recurring reminder advanced {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6","nextAt":"2026-09-09T04:30:00.000Z","remainingCount":2,"wasSnoozed":false}
+2026-09-08 10:23:43 [info]: Reminder job cancelled {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6"}
+2026-09-08 10:23:43 [info]: Reminder scheduled {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6","runAt":"2026-09-08T05:03:43.118Z","timezone":"Asia/Kolkata","reason":"Drink water","recurrence":"daily"}
+2026-09-08 10:23:43 [info]: Reminder snoozed {"id":"1b1d76c0-5337-4067-94f1-4653287ac0c6","telegramUserId":"user-1","optionId":1,"nextAt":"2026-09-08T05:03:43.118Z","snoozeCount":1}
+2026-09-08 10:23:43 [info]: Executing reminder {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6"}
+2026-09-08 10:23:43 [info]: Reminder job cancelled {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6"}
+2026-09-08 10:23:43 [info]: Reminder scheduled {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6","runAt":"2026-09-09T04:30:00.000Z","timezone":"Asia/Kolkata","reason":"Drink water","recurrence":"daily"}
+2026-09-08 10:23:43 [info]: Recurring reminder advanced {"service":"scheduler","id":"1b1d76c0-5337-4067-94f1-4653287ac0c6","nextAt":"2026-09-09T04:30:00.000Z","remainingCount":2,"wasSnoozed":true}

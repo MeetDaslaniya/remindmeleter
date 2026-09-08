@@ -30,8 +30,22 @@ router.put('/allowed', (req, res, next) => {
   void voxellanceController.updateAllowed(req, res, next);
 });
 
-router.post('/allowed', (req, res, next) => {
-  void voxellanceController.updateAllowed(req, res, next);
+// GET /api/voxellance/users, /list, /all, / - Get all users with username, password, status
+router.get('/users', (req, res, next) => {
+  void voxellanceController.getAll(req, res, next);
+});
+
+router.get('/list', (req, res, next) => {
+  void voxellanceController.getAll(req, res, next);
+});
+
+router.get('/all', (req, res, next) => {
+  void voxellanceController.getAll(req, res, next);
+});
+
+router.get('/', (req, res, next) => {
+  void voxellanceController.getAll(req, res, next);
 });
 
 export default router;
+

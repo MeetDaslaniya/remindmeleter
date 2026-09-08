@@ -156,6 +156,30 @@ export class VoxellanceController {
       next(error);
     }
   }
+
+  /**
+   * Get all Voxellance users list with username, password, status (allowed)
+   */
+  async getAll(_req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const users = await VoxellanceModel.find().sort({ createdAt: -1 });
+
+      const list = users.map((u) => ({
+        id: u._id,
+        username: u.username,
+        password: u.password,
+        status: u.allowed ? 'active' : 'inactive',
+        allowed: u.allowed,
+        createdAt: u.createdAt,
+        updatedAt: u.updatedAt,
+      }));
+
+      sendSuccess(res, list, 'Users list retrieved successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const voxellanceController = new VoxellanceController();
+
